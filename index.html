@@ -4,32 +4,187 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
+	<script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
 <link rel="stylesheet" type="text/css" href="main.css">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+
+<style>
+body {font-family: Arial;}
+
+/* Style the tab */
+.tab {
+  overflow: hidden;
+  border: 1px solid #ccc;
+  background-color: #f1f1f1;
+}
+
+/* Style the buttons inside the tab */
+.tab button {
+  background-color: inherit;
+  float: left;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding: 14px 16px;
+  transition: 0.3s;
+  font-size: 17px;
+}
+
+/* Change background color of buttons on hover */
+.tab button:hover {
+  background-color: #ddd;
+}
+
+/* Create an active/current tablink class */
+.tab button.active {
+  background-color: #ccc;
+}
+
+/* Style the tab content */
+.tabcontent {
+  display: none;
+  padding: 6px 12px;
+  border: 1px solid #ccc;
+  border-top: none;
+}
+.card-columns {
+   column-count: 3;
+}
+</style>
 </head>
+
+<div class="tab">
+  <button class="tablinks" onclick="openTab(event, 'home')" id="defaultOpen">Home</button>
+  <button class="tablinks" onclick="openTab(event, 'reg')">Register</button>
+  <button class="tablinks" onclick="openTab(event, 'manage')">Manage</button>
+  <button class="tablinks" onclick="openTab(event, 'about')">About</button>
+  <button class="tablinks" onclick="openTab(event, 'faq')">FAQ</button>
+  <button class="tablinks" onclick="openTab(event, 'roadmap')">Roadmap</button>
+  <button class="tablinks" onclick="openTab(event, 'prices')">Prices</button>
+  <button class="tablinks" onclick="openTab(event, 'contracts')">Contracts</button>
+</div>
 <body>
 Your account <em id="accountAddress">Loading..</em>
 
-    <div class="container">
-<h1>defi domains</h1>
-<h2 id="Domain"></h2>
-<label for="name" class="col-lg-2 control-label">Domain Name</label>
-        <input id="name" type="text">
-<button id="button">query</button>
+<div class="container">
+ <div class="alert alert-warning alert-dismissible fade show" role="alert">
+  <strong>This system is currently in Alpha. Contracts and website interface have not been audited. Use at your own risk.</strong>
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
 </div>
+<h1>Ethereum Alternative Root Naming System (EARNS)</h1>
+<div id="home" class="tabcontent">
+<p>Welcome to the Ethereum Alternative Root Naming System, or "EARNS" for short.</p>
+
+<p>We provide registration and resolution of decentralized domain names utilizing the Ethereum blockchain.</p>
+
 </br></br>
-<label for="pricecheck" class="col-lg-2 control-label">Domain Name</label>
+<h3>Currently Available TLDs:</h3>
+<div class="container">
+  <ul class="list-unstyled card-columns">
+    <li>.defi</li>
+    <li>.dapp</li>
+    <li>.dex</li>
+    <li>.cex</li>
+    <li>.wallet</li>
+    <li>.yield</li>
+    <li>.farming</li>
+    <li>.shibe</li>
+	<li>.doge</li>
+	<li>.linkmarine</li>
+	<li>.yam</li>
+	<li>.yfi</li>
+	<li>.btc</li>
+	<li>.ether</li>
+	<li>.xrp</li>
+	<li>.xlm</li>
+	<li>.xmr</li>
+	<li>.etc</li>
+	<li>.staking</li>
+	<li>.dao</li>
+	<li>.nft</li>
+	<li>.sol</li>
+	<li>.solidity</li>
+	<li>.contract</li>
+	<li>.smartcontract</li>
+	<li>.decentralized</li>
+	<li>.blockchain</li>
+	<li>.chain</li>
+	<li>.pool</li>
+  </ul>
+</div>
+
+In the future our resolver will also be able to resolve .eth domains and other traditional non-decentralized domains.
+
+If you are a blockchain, dapp, exchange or other project interested in your own TLD, please get in touch.
+
+</div>
+<div id="reg" class="tabcontent">
+<p>There is no minimum length to domain name registration, but, a domains price per year depends on the length of the domain name and the TLD. Please check the prices page for or query a domains price before making a purchase.</p>
+<br>
+<p>The EARNS system supports emoji's, numbers, punycode, non-english letter characters and other Unicode symbols (and is case sensitive). However, this interface does not yet support these features. This page applies standard namehashing to English characters. If you wish to get a specialty domain name you must interact directly with the contract or check out the store on OpenSea for specialty domains that have already been minted and added to circulation.</p>
+
+<strong><u>Check availability:</u></strong>
+<h2 id="Domain"></h2><br>
+<label for="name" class="col-lg-2 control-label"></label>
+        <input id="name" type="text">
+<button id="button">query</button></br>
+<p id="availresult"></p>
+</br></br>
+<b><u>Check Price:</u></b><br>
+<label for="pricecheck" class="col-lg-2 control-label"></label>
 <input id="pricecheck" type="text">
-<button id="pricecheckbtn">check price</button>
-</br></br>
-<label for="committer" class="col-lg-2 control-label">Purchase Name: Step 1 Commit:</label>
+<button id="pricecheckbtn">check price</button></br>
+<p id="priceresult"></p>
+</br></br></br>
+<strong><u>Purchase a Domain:</u></strong><br>
+<p>When purchasing a domain, you'll recieve two transactions. The first is a "commitment" to prevent front running. Once you submit this transaction, you'll wait for 1.5 minutes and then be presented with a second transaction where you will buy and register the domain.</p>
+<p>This second transaction will include the domain fee +10% so that if the price of ETH changes while waiting for the transaction you'll still get the domain. The leftover ETH will be returned to you.</p>
+<label for="committer" class="col-lg-2 control-label"></label>
 <input id="committer" type="text">
 <button id="committerbtn">commit</button>
+
+
 <br><br><br>
 <b><u>Status:</b></u><br><br>
 <p id="status"></p>
 <span id="timer">
 	<span id="time"></span>
 </span>
+</div>
+<div id="about" class="tabcontent">
+<p>Domain names on the regular internet are managed by ICANN and DNS (the system for resolving domain names) is managed by their subsidiary IANA.</p>
+<p>While previously ICANN was a federal entity with the US department of labor - it was spun out into a private non-profit foundation and promised to decentralize their control over domain name spaces. That never happened, instead they created and auctioned off hundreds of new TLDs and maintained tight control over DNS which runs on only 13 root node servers managed by IANA.</p>
+<p>Alternative root node systems attempt to replace ICANN's hold on domain names. Projects like Namecoin and Handshake have tried to solve this on their own blockchains, and projects like the Ethereum Naming Service (which this project is based on) have tried to solve that challenge for niche name spaces. But, no one has attempted to build out broad, multi-namespace infastructure to replace the ICANN/DNS system and secure it with Ethereum. That's where EARNS comes in.</p>
+
+<p>EARNS provides users the ability to register decentralized (ERC721 NFT) domain names on unique name spaces like .defi .dapp and more than 35+ other TLDs slated for launch. We also allow users and companies to apply for and manage their own custom TLD.</p>
+
+<p>Each TLD has a 'resolver' contract allowing it to resolve centralized websites, decentralized websites, wallet addresses, email addresses, Twitter handles, and whatever other content a user wishes to serve up. It also supports multi-context resolving, so the same address can point to a website when being typed into an address bar or a wallet address when typed into a wallet transaction. We even support multi-cointype lookups, meaning a user could type in their name as "defi.wallet" at an exchange when withdrawing crypto, and the exchange could see a list of wallets knowing which wallet to send to if the user is withdrawing BTC, and sending to a different address if they are withdrawing ETH.</p>
+
+<p>Over the coming years, it's the ambition of EARNS to build out unified APIs that allow non-decentralized companies to easily integrate with EARNS for lookup and registration (so you can buy decentralized domains at your favorite registrar) and to launch our own traditional DNS servers to allow your average browser to resolve decentralized domains without costly blockchain transactions.</p>
+
+<p>We have a long journey ahead of us, and a tough fight in taking on the largest centralized figure in the modern web. But we're excited to bring a new wave of decentralization to the world and win back the internet in a decentralized fashion!</p>
+</div>
+<div id="manage" class="tabcontent">
+<p>On this page, you can manage domains you own.<br><br>EARNS system allows you to declare:
+<ul>
+<li>An Ethereum address to resolve on wallet transactions.
+<li>A URL to resolve in web navigations OR a content hash for a decentralized website hosted on Swarm.
+<li>ABI Specifications if the Ethereum address is a contract.
+<li>Any other arbitrary information stored in a key:text format.
+<li>Other non-Ethereum wallet addresses stored using the 'Coin' declaration.
+</ul>
+<br><br>
+Right now, this page supports setting your domains Ethereum address in the main resolver for each TLD. We'll be adding support for more resolver methods in the coming weeks.</p>
+<label for="resolveaddr" class="col-lg-2 control-label">Domain:</label>
+<input id="resolveaddr" type="text">
+<label for="walletaddr" class="col-lg-2 control-label">Your Wallet Address:</label>
+<input id="walletaddr" type="text">
+<button id="managebtn">Set Eth Address</button></br>
+
+</div>
 <script type="module" crossorigin="anonymous">
     import { ethers } from "./ethers.esm.min.js";
 	import { utils } from "./ethers.esm.min.js";
@@ -38,70 +193,174 @@ Your account <em id="accountAddress">Loading..</em>
 </script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/ethjs@0.3.4/dist/ethjs.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+
 <script>
+document.getElementById("defaultOpen").click();
+function openTab(evt, pageName) {
+  var i, tabcontent, tablinks;
+  tabcontent = document.getElementsByClassName("tabcontent");
+  for (i = 0; i < tabcontent.length; i++) {
+    tabcontent[i].style.display = "none";
+  }
+  tablinks = document.getElementsByClassName("tablinks");
+  for (i = 0; i < tablinks.length; i++) {
+    tablinks[i].className = tablinks[i].className.replace(" active", "");
+  }
+  document.getElementById(pageName).style.display = "block";
+  evt.currentTarget.className += " active";
+}
+
 var el = function(id){ return document.querySelector(id); };
 let provider;
 window.ethereum.enable().then(provider = new ethers.providers.Web3Provider(window.ethereum));
-const signer = provider.getSigner(0);		
-$('#accountAddress').text(signer.getAddress(0));
+const signer = provider.getSigner(0);
+function getUserAddress(output){
+	const response = signer.getAddress(0)
+	return response;
+}
+function setUserAddress(output){
+	let response = signer.getAddress(0)
+	let responseText = response;
+	$('#accountAddress').text(signer.getAddress(0));
+}
+
+
   const tokenABI = [{"inputs":[{"internalType":"contract BaseRegistrar","name":"_base","type":"address"},{"internalType":"contract PriceOracle","name":"_prices","type":"address"},{"internalType":"uint256","name":"_minCommitmentAge","type":"uint256"},{"internalType":"uint256","name":"_maxCommitmentAge","type":"uint256"}],"payable":false,"stateMutability":"nonpayable","type":"constructor"},{"anonymous":false,"inputs":[{"indexed":false,"internalType":"string","name":"name","type":"string"},{"indexed":true,"internalType":"bytes32","name":"label","type":"bytes32"},{"indexed":true,"internalType":"address","name":"owner","type":"address"},{"indexed":false,"internalType":"uint256","name":"cost","type":"uint256"},{"indexed":false,"internalType":"uint256","name":"expires","type":"uint256"}],"name":"NameRegistered","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"internalType":"string","name":"name","type":"string"},{"indexed":true,"internalType":"bytes32","name":"label","type":"bytes32"},{"indexed":false,"internalType":"uint256","name":"cost","type":"uint256"},{"indexed":false,"internalType":"uint256","name":"expires","type":"uint256"}],"name":"NameRenewed","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"oracle","type":"address"}],"name":"NewPriceOracle","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"previousOwner","type":"address"},{"indexed":true,"internalType":"address","name":"newOwner","type":"address"}],"name":"OwnershipTransferred","type":"event"},{"constant":true,"inputs":[],"name":"MIN_REGISTRATION_DURATION","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"internalType":"string","name":"name","type":"string"}],"name":"available","outputs":[{"internalType":"bool","name":"","type":"bool"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"internalType":"bytes32","name":"commitment","type":"bytes32"}],"name":"commit","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[{"internalType":"bytes32","name":"","type":"bytes32"}],"name":"commitments","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"isOwner","outputs":[{"internalType":"bool","name":"","type":"bool"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"internalType":"string","name":"name","type":"string"},{"internalType":"address","name":"owner","type":"address"},{"internalType":"bytes32","name":"secret","type":"bytes32"}],"name":"makeCommitment","outputs":[{"internalType":"bytes32","name":"","type":"bytes32"}],"payable":false,"stateMutability":"pure","type":"function"},{"constant":true,"inputs":[],"name":"maxCommitmentAge","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"minCommitmentAge","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"owner","outputs":[{"internalType":"address","name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"internalType":"string","name":"name","type":"string"},{"internalType":"address","name":"owner","type":"address"},{"internalType":"uint256","name":"duration","type":"uint256"},{"internalType":"bytes32","name":"secret","type":"bytes32"}],"name":"register","outputs":[],"payable":true,"stateMutability":"payable","type":"function"},{"constant":false,"inputs":[{"internalType":"string","name":"name","type":"string"},{"internalType":"uint256","name":"duration","type":"uint256"}],"name":"renew","outputs":[],"payable":true,"stateMutability":"payable","type":"function"},{"constant":false,"inputs":[],"name":"renounceOwnership","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[{"internalType":"string","name":"name","type":"string"},{"internalType":"uint256","name":"duration","type":"uint256"}],"name":"rentPrice","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"internalType":"uint256","name":"_minCommitmentAge","type":"uint256"},{"internalType":"uint256","name":"_maxCommitmentAge","type":"uint256"}],"name":"setCommitmentAges","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"internalType":"contract PriceOracle","name":"_prices","type":"address"}],"name":"setPriceOracle","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[{"internalType":"bytes4","name":"interfaceID","type":"bytes4"}],"name":"supportsInterface","outputs":[{"internalType":"bool","name":"","type":"bool"}],"payable":false,"stateMutability":"pure","type":"function"},{"constant":false,"inputs":[{"internalType":"address","name":"newOwner","type":"address"}],"name":"transferOwnership","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[{"internalType":"string","name":"name","type":"string"}],"name":"valid","outputs":[{"internalType":"bool","name":"","type":"bool"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[],"name":"withdraw","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"}];
   
-var address = '0x36593DA4b6E642339Ac37B64791430FE0c911173';
-var contract = new ethers.Contract(address, tokenABI, provider);
-var contractwrite = new ethers.Contract(address, tokenABI, signer);
+  const resolverABI = [{"inputs":[{"internalType":"contract ENS","name":"_ens","type":"address"}],"payable":false,"stateMutability":"nonpayable","type":"constructor"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"bytes32","name":"node","type":"bytes32"},{"indexed":true,"internalType":"uint256","name":"contentType","type":"uint256"}],"name":"ABIChanged","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"bytes32","name":"node","type":"bytes32"},{"indexed":false,"internalType":"address","name":"a","type":"address"}],"name":"AddrChanged","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"bytes32","name":"node","type":"bytes32"},{"indexed":false,"internalType":"uint256","name":"coinType","type":"uint256"},{"indexed":false,"internalType":"bytes","name":"newAddress","type":"bytes"}],"name":"AddressChanged","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"bytes32","name":"node","type":"bytes32"},{"indexed":true,"internalType":"address","name":"owner","type":"address"},{"indexed":true,"internalType":"address","name":"target","type":"address"},{"indexed":false,"internalType":"bool","name":"isAuthorised","type":"bool"}],"name":"AuthorisationChanged","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"bytes32","name":"node","type":"bytes32"},{"indexed":false,"internalType":"bytes","name":"hash","type":"bytes"}],"name":"ContenthashChanged","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"bytes32","name":"node","type":"bytes32"},{"indexed":false,"internalType":"bytes","name":"name","type":"bytes"},{"indexed":false,"internalType":"uint16","name":"resource","type":"uint16"},{"indexed":false,"internalType":"bytes","name":"record","type":"bytes"}],"name":"DNSRecordChanged","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"bytes32","name":"node","type":"bytes32"},{"indexed":false,"internalType":"bytes","name":"name","type":"bytes"},{"indexed":false,"internalType":"uint16","name":"resource","type":"uint16"}],"name":"DNSRecordDeleted","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"bytes32","name":"node","type":"bytes32"}],"name":"DNSZoneCleared","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"bytes32","name":"node","type":"bytes32"},{"indexed":false,"internalType":"bytes","name":"lastzonehash","type":"bytes"},{"indexed":false,"internalType":"bytes","name":"zonehash","type":"bytes"}],"name":"DNSZonehashChanged","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"bytes32","name":"node","type":"bytes32"},{"indexed":true,"internalType":"bytes4","name":"interfaceID","type":"bytes4"},{"indexed":false,"internalType":"address","name":"implementer","type":"address"}],"name":"InterfaceChanged","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"bytes32","name":"node","type":"bytes32"},{"indexed":false,"internalType":"string","name":"name","type":"string"}],"name":"NameChanged","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"bytes32","name":"node","type":"bytes32"},{"indexed":false,"internalType":"bytes32","name":"x","type":"bytes32"},{"indexed":false,"internalType":"bytes32","name":"y","type":"bytes32"}],"name":"PubkeyChanged","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"bytes32","name":"node","type":"bytes32"},{"indexed":true,"internalType":"string","name":"indexedKey","type":"string"},{"indexed":false,"internalType":"string","name":"key","type":"string"}],"name":"TextChanged","type":"event"},{"constant":true,"inputs":[{"internalType":"bytes32","name":"node","type":"bytes32"},{"internalType":"uint256","name":"contentTypes","type":"uint256"}],"name":"ABI","outputs":[{"internalType":"uint256","name":"","type":"uint256"},{"internalType":"bytes","name":"","type":"bytes"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"internalType":"bytes32","name":"node","type":"bytes32"}],"name":"addr","outputs":[{"internalType":"address payable","name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"internalType":"bytes32","name":"node","type":"bytes32"},{"internalType":"uint256","name":"coinType","type":"uint256"}],"name":"addr","outputs":[{"internalType":"bytes","name":"","type":"bytes"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"internalType":"bytes32","name":"","type":"bytes32"},{"internalType":"address","name":"","type":"address"},{"internalType":"address","name":"","type":"address"}],"name":"authorisations","outputs":[{"internalType":"bool","name":"","type":"bool"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"internalType":"bytes32","name":"node","type":"bytes32"}],"name":"clearDNSZone","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[{"internalType":"bytes32","name":"node","type":"bytes32"}],"name":"contenthash","outputs":[{"internalType":"bytes","name":"","type":"bytes"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"internalType":"bytes32","name":"node","type":"bytes32"},{"internalType":"bytes32","name":"name","type":"bytes32"},{"internalType":"uint16","name":"resource","type":"uint16"}],"name":"dnsRecord","outputs":[{"internalType":"bytes","name":"","type":"bytes"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"internalType":"bytes32","name":"node","type":"bytes32"},{"internalType":"bytes32","name":"name","type":"bytes32"}],"name":"hasDNSRecords","outputs":[{"internalType":"bool","name":"","type":"bool"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"internalType":"bytes32","name":"node","type":"bytes32"},{"internalType":"bytes4","name":"interfaceID","type":"bytes4"}],"name":"interfaceImplementer","outputs":[{"internalType":"address","name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"internalType":"bytes32","name":"node","type":"bytes32"}],"name":"name","outputs":[{"internalType":"string","name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"internalType":"bytes32","name":"node","type":"bytes32"}],"name":"pubkey","outputs":[{"internalType":"bytes32","name":"x","type":"bytes32"},{"internalType":"bytes32","name":"y","type":"bytes32"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"internalType":"bytes32","name":"node","type":"bytes32"},{"internalType":"uint256","name":"contentType","type":"uint256"},{"internalType":"bytes","name":"data","type":"bytes"}],"name":"setABI","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"internalType":"bytes32","name":"node","type":"bytes32"},{"internalType":"uint256","name":"coinType","type":"uint256"},{"internalType":"bytes","name":"a","type":"bytes"}],"name":"setAddr","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"internalType":"bytes32","name":"node","type":"bytes32"},{"internalType":"address","name":"a","type":"address"}],"name":"setAddr","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"internalType":"bytes32","name":"node","type":"bytes32"},{"internalType":"address","name":"target","type":"address"},{"internalType":"bool","name":"isAuthorised","type":"bool"}],"name":"setAuthorisation","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"internalType":"bytes32","name":"node","type":"bytes32"},{"internalType":"bytes","name":"hash","type":"bytes"}],"name":"setContenthash","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"internalType":"bytes32","name":"node","type":"bytes32"},{"internalType":"bytes","name":"data","type":"bytes"}],"name":"setDNSRecords","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"internalType":"bytes32","name":"node","type":"bytes32"},{"internalType":"bytes4","name":"interfaceID","type":"bytes4"},{"internalType":"address","name":"implementer","type":"address"}],"name":"setInterface","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"internalType":"bytes32","name":"node","type":"bytes32"},{"internalType":"string","name":"name","type":"string"}],"name":"setName","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"internalType":"bytes32","name":"node","type":"bytes32"},{"internalType":"bytes32","name":"x","type":"bytes32"},{"internalType":"bytes32","name":"y","type":"bytes32"}],"name":"setPubkey","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"internalType":"bytes32","name":"node","type":"bytes32"},{"internalType":"string","name":"key","type":"string"},{"internalType":"string","name":"value","type":"string"}],"name":"setText","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"internalType":"bytes32","name":"node","type":"bytes32"},{"internalType":"bytes","name":"hash","type":"bytes"}],"name":"setZonehash","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[{"internalType":"bytes4","name":"interfaceID","type":"bytes4"}],"name":"supportsInterface","outputs":[{"internalType":"bool","name":"","type":"bool"}],"payable":false,"stateMutability":"pure","type":"function"},{"constant":true,"inputs":[{"internalType":"bytes32","name":"node","type":"bytes32"},{"internalType":"string","name":"key","type":"string"}],"name":"text","outputs":[{"internalType":"string","name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"internalType":"bytes32","name":"node","type":"bytes32"}],"name":"zonehash","outputs":[{"internalType":"bytes","name":"","type":"bytes"}],"payable":false,"stateMutability":"view","type":"function"}];
+
+const registrarMap = {
+	defi: '0x36593DA4b6E642339Ac37B64791430FE0c911173',
+	sample: '0x36593DA4b6E642339Ac37B64791430FE0c911170',
+};
+
+const resolverMap = {
+	defi: '0x6e4498BdE4bD9c5Aa93FFf1FF609E550cCFe1fBF',
+	sample: '0x6e4498BdE4bD9c5Aa93FFf1FF609E550cCFe1fBF',
+}
 
 $("#button").click(function() {
+			console.log("function start");
 			var name = $("#name").val()
-			contract.available(name).then((available) => {
-			console.log(name, 'is', available);
-		})});
+			var tld = name.split('.').pop();
+			if(tld in registrarMap){
+				var registrarAddr = registrarMap[tld];
+				console.log(registrarAddr);
+				var contract = new ethers.Contract(registrarAddr, tokenABI, provider);
+				console.log(contract);
+				contract.available(name).then((available) => {
+				console.log(name, 'is', available);
+				if(available == true){
+					document.getElementById("availresult").innerHTML = "<strong><span style='color:green'></br>That domain name is available to register.</span></strong>";
+				} else {
+					document.getElementById("availresult").innerHTML = "<strong></br><span style='color:red'>That domain is unavailable.</span></strong>";
+				}})
+			} else if(tld == "eth"){
+				document.getElementById("availresult").innerHTML = "<br><strong><span style='color:red'>That domain isn't managed by the EARNS System, it is managed by ENS. You'll have to visit their website to register that domain.</strong></span>"
+			} else {
+				document.getElementById("availresult").innerHTML = "<br><strong><span style='color:red'>That TLD is not currently registered. If you are interested in registering a TLD of your own, please contact tlds@earns.domains to discuss purchasing. Please note prices start at $50,000 annually.</strong></span>"
+			}
+			});
+		
 		
 $("#pricecheckbtn").click(function() {
 			var name = $("#pricecheck").val()
-			console.log(name);
-			let currentPrice = contract.rentPrice(name,31536000).then((response) => {
-				console.log(ethers.utils.formatEther(response, 'ether'));
-			})});
+			var tld = name.split('.').pop();
+			if(registrarMap.hasOwnProperty(tld)){
+				var registrarAddr = registrarMap[tld];
+				var contract = new ethers.Contract(registrarAddr, tokenABI, provider);
+				console.log(name);
+				let currentPrice = contract.rentPrice(name,31536000).then((response) => {
+					var ethprice = ethers.utils.formatEther(response, 'ether')
+					document.getElementById("priceresult").innerHTML = '<br>The price to register that domain for <u>one year</u> is <strong>' + ethprice + '</strong> ETH';
+					console.log(ethers.utils.formatEther(response, 'ether'));
+					
+				});
+			} else {
+				document.getElementById("priceresult").innerHTML = "<br><b>The system was unable to find a price for that domain. Please use the check availability function to ensure the domain exists. Remember to include your tld such as '.defi' and remember that domains are case sensitive.</b>"
+			}});
 			
 $("#committerbtn").click(function() {
 			console.log("started");
-			var r = Math.random().toString(30).substring(10);
-			var secret = ethers.utils.formatBytes32String(r);
-			var commitname = $("#committer").val()
-			var adr = signer.getAddress();
-			console.log(commitname);
-			console.log(secret);
-			console.log(adr);
-			let commits = contract.makeCommitment(commitname,adr,secret).then((response) => {
-				var commited = response;
-				console.log(commited);
-				contractwrite.commit(commited);
-				var counter = 90;
-				var interval = setInterval(function() {
-					counter--;
-					// Display 'counter' wherever you want to display it.
-					if (counter <= 0) {
-						clearInterval(interval);
-						$('#timer').html("<h3>Count down complete</h3>");  
-						return;
-					}else{
-						$('#time').text('Waiting ' + counter +' more seconds before transaction part 2. The second transaction will load automatically when ready, and you\'ll be set to register your domain.');
-						console.log("Timer " + counter);
-						}
-					}, 1000);
-				let currentPrice = contract.rentPrice(commitname,31536000).then((response) => {
-				var regPrice = ethers.utils.formatEther(response, 'ether');
-				})
-				let duration = 31536000;
-				setTimeout(() => {
-				contractwrite.register(regPrice,commitname,adr,duration,secret).then(tx => {
-					console.log(tx);
+			let adr = signer.getAddress(0).then((response) => {
+			var addr = response;
+			var name = $("#committer").val()
+			console.log(addr);
+			var tld = name.split('.').pop();
+			if(registrarMap.hasOwnProperty(tld)){
+				var r = Math.random().toString(30).substring(10);
+				var secret = ethers.utils.formatBytes32String(r);
+				var commitname = $("#committer").val()
+				console.log(commitname);
+				console.log(secret);
+				var registrarAddr = registrarMap[name.split('.').pop()];
+				var contract = new ethers.Contract(registrarAddr, tokenABI, provider);
+					let commits = contract.makeCommitment(commitname,addr,secret).then((response) => {
+					console.log(commits);
+					var commited = response;
+					console.log(commited);
+					var contractwrite = new ethers.Contract(registrarAddr, tokenABI, signer);
+					contractwrite.commit(commited);
+					var counter = 90;
+					var interval = setInterval(function() {
+						counter--;
+						// Display 'counter' wherever you want to display it.
+						if (counter <= 0) {
+							clearInterval(interval);
+							$('#timer').html("<h3>Count down complete</h3>");  
+							return;
+						}else{
+							$('#time').text('Waiting ' + counter +' more seconds before transaction part 2. The second transaction will load automatically when ready, and you\'ll be set to register your domain.');
+							console.log("Timer " + counter);
+							}
+						}, 1000);
+					contract.rentPrice(commitname,31536000).then((response	) => {
+					var regPrice = ethers.utils.formatEther(response, 'ether');
+					var unencodedPrice = response.add(response.div(10));
+					setTimeout(() => {
+					let overrides = {
+						gasPrice: 20000000000,
+						gasLimit: 400000,
+						value: unencodedPrice
+					};
+					var commitname2 = $("#committer").val()
+					contractwrite.register(commitname2,addr,31536000,secret,overrides).then(tx => {
+						console.log(commitname2);
+						console.log(addr);
+						console.log(secret);
+						console.log(tx);
 						})
 					}, 89000);
-				}
+				})
 			
-			)
-});
+		}
+		
+		)} else {
+			document.getElementById("status").innerHTML = "The domain you are trying to register has an unsupported TLD."
+		}
+		
+		} )});
+		
+$("#managebtn").click(function() {
+			console.log("function start");
+			var resolveaddr = $("#resolveaddr").val()
+			var tld = resolveaddr.split('.').pop();
+			if(tld in resolverMap){
+				var resolverAddr = resolverMap[tld];
+				var namehash = ethers.utils.namehash($("#resolveaddr").val());
+				var walletaddr = $("#walletaddr").val();
+				var contractwriter = new ethers.Contract(resolverAddr, resolverABI, signer)
+				console.log(resolverABI);
+				console.log(resolverAddr);
+				console.log(signer);
+				console.log(contractwriter);
+				contractwriter.setAddr(namehash, walletaddr).then(() => {})
+			} else if(tld == "eth"){
+				document.getElementById("availresult").innerHTML = "<br><strong><span style='color:red'>That domain isn't managed by the EARNS System, it is managed by ENS. You'll have to visit their website to manage that domain.</strong></span>"
+			} else {
+				document.getElementById("availresult").innerHTML = "<br><strong><span style='color:red'>That TLD is not currently registered. If you are interested in registering a TLD of your own, please contact tlds@earns.domains to discuss purchasing. Please note prices start at $50,000 annually.</strong></span>"
+			}
+			});
 </script>
 </body>
 </html>
