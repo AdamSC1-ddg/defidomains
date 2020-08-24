@@ -354,7 +354,7 @@ $("#managebtn").click(function() {
 				console.log(resolverAddr);
 				console.log(signer);
 				console.log(contractwriter);
-				contractwriter.setAddr(namehash, walletaddr).then(() => {})
+				contractwriter["setAddr(bytes32,address)"](namehash, walletaddr).then(() => {})
 			} else if(tld == "eth"){
 				document.getElementById("availresult").innerHTML = "<br><strong><span style='color:red'>That domain isn't managed by the EARNS System, it is managed by ENS. You'll have to visit their website to manage that domain.</strong></span>"
 			} else {
