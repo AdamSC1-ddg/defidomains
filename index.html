@@ -51,6 +51,38 @@ body {font-family: Arial;}
 .card-columns {
    column-count: 3;
 }
+h2 {
+    font-family: Arial, Verdana;
+    font-weight: 800;
+    font-size: 2.5rem;
+    color: #091f2f;
+    text-transform: uppercase;
+}
+.accordion-section .panel-default > .panel-heading {
+    border: 0;
+    background: #f4f4f4;
+    padding: 0;
+}
+.accordion-section .panel-default .panel-title a {
+    display: block;
+    font-style: italic;
+    font-size: 1.5rem;
+}
+.accordion-section .panel-default .panel-title a:after {
+    font-family: 'FontAwesome';
+    font-style: normal;
+    font-size: 3rem;
+    content: "\f106";
+    color: #1f7de2;
+    float: right;
+    margin-top: -12px;
+}
+.accordion-section .panel-default .panel-title a.collapsed:after {
+    content: "\f107";
+}
+.accordion-section .panel-default .panel-body {
+    font-size: 1.2rem;
+}
 </style>
 </head>
 
@@ -60,16 +92,14 @@ body {font-family: Arial;}
   <button class="tablinks" onclick="openTab(event, 'manage')">Manage</button>
   <button class="tablinks" onclick="openTab(event, 'about')">About</button>
   <button class="tablinks" onclick="openTab(event, 'faq')">FAQ</button>
-  <button class="tablinks" onclick="openTab(event, 'roadmap')">Roadmap</button>
   <button class="tablinks" onclick="openTab(event, 'prices')">Prices</button>
   <button class="tablinks" onclick="openTab(event, 'contracts')">Contracts</button>
 </div>
 <body>
-Your account <em id="accountAddress">Loading..</em>
 
 <div class="container">
  <div class="alert alert-warning alert-dismissible fade show" role="alert">
-  <strong>This system is currently in Alpha. Contracts and website interface have not been audited. Use at your own risk.</strong>
+  <strong>This system is currently in Alpha. Contracts and website interface have not been audited. Use at your own risk. To use this site you must be connected to the Etherem network via MetaMask or another local provider.</strong>
   <button type="button" class="close" data-dismiss="alert" aria-label="Close">
     <span aria-hidden="true">&times;</span>
   </button>
@@ -183,6 +213,367 @@ Right now, this page supports setting your domains Ethereum address in the main 
 <label for="walletaddr" class="col-lg-2 control-label">Your Wallet Address:</label>
 <input id="walletaddr" type="text">
 <button id="managebtn">Set Eth Address</button></br>
+</div>
+<div id="faq" class="tabcontent">
+<section class="accordion-section clearfix mt-3" aria-label="Question Accordions">
+  <div class="container">
+  
+	  <h2>Frequently Asked Questions </h2>
+	  <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+		<div class="panel panel-default">
+		  <div class="panel-heading p-3 mb-3" role="tab" id="heading0">
+			<h3 class="panel-title">
+			  <a class="collapsed" role="button" title="" data-toggle="collapse" data-parent="#accordion" href="#collapse0" aria-expanded="true" aria-controls="collapse0">
+				What is EARNS?
+			  </a>
+			</h3>
+		  </div>
+		  <div id="collapse0" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading0">
+			<div class="panel-body px-3 mb-4">
+			  <p>The EARNS system is an alternative to classic domain names and traditional DNS. Commonly referred to as an 'alternative DNS root'. EARNS offers:</p>
+			  <ul>
+				<li>NFT tokenized domain names on a central smart contract registry.</li>
+				<li>The ability to associate and resolve any type of information with an NFT token using a public resolver.</li>
+				<li>Multi-coin address resolution support.</li>
+				<li>Cross blockchain name resolution support.</li>
+				<li>Uncensorable domain names.</li>
+			  </ul>
+			</div>
+		  </div>
+		</div>
+		
+		<div class="panel panel-default">
+		  <div class="panel-heading p-3 mb-3" role="tab" id="heading1">
+			<h3 class="panel-title">
+			  <a class="collapsed" role="button" title="" data-toggle="collapse" data-parent="#accordion" href="#collapse1" aria-expanded="true" aria-controls="collapse1">
+				How is the EARNS system different from other alternative DNS roots?
+			  </a>
+			</h3>
+		  </div>
+		  <div id="collapse1" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading1">
+			<div class="panel-body px-3 mb-4">
+			  <p>Most alternative root systems only aim to replicate the DNS root that is owned by ICANN, a centralized foundation that was previously part of the US government. Some blockchain based alternative DNS roots such as Namecoin and Handshake attempt to fully replace ICANN's DNS system but do so on their own blockchains that require unique incentive methods and lack the hash security of the Ethereum blockchain.</p>
+			  <p>The other main alternative domain system ENS (.eth). While ENS started as part of the Ethereum foundation it spun out into a seperate organization. ENS views themselves as part of the DNS global name space and is focused solely on resolving the .eth TLD, and existing TLDs. Not in bringing new systems to market. Furthermore, since the .eth TLD is already part of the gTLD namespace on traditional DNS, .eth can never be reconiciled in a system that supports traditional DNS.</p>
+			  <p>The goal of EARNS on the other hand is to build a new system of TLDs that can eventually be bridged onto the main DNS space, through a specialized staking sidechain. Allowing users to use their new domains both in the same contexts they use .eth, but also eventually in traditional DNS.</p>
+			  <p>While ENS is focused on bringing existing domain names into tokens, we're focused on going the other direction. Creating new TLDs as tokens, and bringing them to the larger world of DNS.</p>
+			  <p>We think the work of ENS is critical (and its obviously foundational to our product as it is based on their work). We continue to support the work of ENS and do not see them as a competitor but instead a complementary service that deals with the other side of the same coin.</p>
+			</div>
+		  </div>
+		</div>
+		
+		<div class="panel panel-default">
+		  <div class="panel-heading p-3 mb-3" role="tab" id="heading2">
+			<h3 class="panel-title">
+			  <a class="collapsed" role="button" title="" data-toggle="collapse" data-parent="#accordion" href="#collapse2" aria-expanded="true" aria-controls="collapse2">
+				What is EARNS view on the global DNS space?
+			  </a>
+			</h3>
+		  </div>
+		  <div id="collapse2" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading2">
+			<div class="panel-body px-3 mb-4">
+			  <p>We do not believe that ICANN/IANA should have sole anti-competitive authority over domain names, and that taking such a stance would fly in the face of the decentralization goals of blockchain technology.</p>
+			  <p>At the same time, we understand and respect the complex and delicate system that DNS is and its importance to a functioning internet.</p>
+			  <p>For this reason, EARNS is specifically bringing to market TLD extensions that do not currently exist in existing DNS name spaces.</p>
+			  <p>We will respect the existing TLDs and gTLDs that ICANN has developed, and in turn expect the same.</p>
+			  <p>This focus on supplemental TLDs is what will allow the EARNS system to eventually reconcile with traditional DNS systems</p>
+			</div>
+		  </div>
+		</div>
+		
+		<div class="panel panel-default">
+		  <div class="panel-heading p-3 mb-3" role="tab" id="heading3">
+			<h3 class="panel-title">
+			  <a class="collapsed" role="button" title="" data-toggle="collapse" data-parent="#accordion" href="#collapse3" aria-expanded="true" aria-controls="collapse3">
+				How will you ensure that ICANN domains don't conflict with EARNS TLDs?
+			  </a>
+			</h3>
+		  </div>
+		  <div id="collapse3" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading3">
+			<div class="panel-body px-3 mb-4">
+			  <p>The TLDs we are bringing to market did not exist in any commercial offering prior to the time we brought them to market.</p>
+			  <p>Given this, they are elgibile for trademarks in most major nations.</p>
+			  <p>For each non-private domain TLD such as ".defi" we will file a US trademark for the namemark in use related to computer activities specifically the resolution of names and addresses. (Note: These marks would only defend ".defi" terms and have no impact on the generic term "defi" - the dot is the distinguishing feature of the mark. Unlike some other companies in the space, we believe the terms themselves should never be trademarked.)</p>
+			  <p>These trademarks, that apply only to TLDs, give us the grounds to take legal action against ICANN/IANA in the rare and unlikely event that they attempt to create their own deployment of these TLDs in the global DNS namespace.</p>
+			</div>
+		  </div>
+		</div>
+		<div class="panel panel-default">
+		  <div class="panel-heading p-3 mb-3" role="tab" id="heading4">
+			<h3 class="panel-title">
+			  <a class="collapsed" role="button" title="" data-toggle="collapse" data-parent="#accordion" href="#collapse4" aria-expanded="true" aria-controls="collapse4">
+				How do you plan to supply records to the main DNS space?
+			  </a>
+			</h3>
+		  </div>
+		  <div id="collapse4" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading4">
+			<div class="panel-body px-3 mb-4">
+			  <p>Our long term vision for this is to create a L2 network of validator nodes which provide validated records from the EARNS namespace in a standard DNS format, allowing them to be resolved by standard browsers and DNS services.</p>
+			  <p>These validators will serve as API services allowing traditional vendors to access the EARNS namespace as well as allowing traditional registrars to offer EARNS names for sale.</p>
+			  <p>This is similar to current sidechain forwarding protocols that we see in existing protocols like the Pokt network for general Ethereum transactions.</p>
+			  <p>In such a model these validators will stake and earn an $EARNS token for completing requests. Once there is a mature network, we'll allocate the $EARNS token as the standard payment method for domains within the EARNS system.</p>
+			  <p>We expect it will be a number of years before we are ready to begin testing the validator stage, and in the mean time will focus on tools, extensions and integration partnerships that allow EARNS to be added to products in a similar way to the ENS system.</p>
+			</div>
+		  </div>
+		</div>
+		<div class="panel panel-default">
+		  <div class="panel-heading p-3 mb-3" role="tab" id="heading5">
+			<h3 class="panel-title">
+			  <a class="collapsed" role="button" title="" data-toggle="collapse" data-parent="#accordion" href="#collapse5" aria-expanded="true" aria-controls="collapse5">
+				Is there currently an $EARNS token?
+			  </a>
+			</h3>
+		  </div>
+		  <div id="collapse5" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading5">
+			<div class="panel-body px-3 mb-4">
+			  <p>While that is part of our long term plan - at this time there is no token.</p>
+			  <p>Do not attempt to purchase any token that claims to be related to the $EARNS project, unless this FAQ is updated to reflect an official record. At such a time the token contract will be listed here for verification.</p>
+			</div>
+		  </div>
+		</div>
+		<div class="panel panel-default">
+		  <div class="panel-heading p-3 mb-3" role="tab" id="heading6">
+			<h3 class="panel-title">
+			  <a class="collapsed" role="button" title="" data-toggle="collapse" data-parent="#accordion" href="#collapse6" aria-expanded="true" aria-controls="collapse6">
+				How do I purchase a EARNS domain?
+			  </a>
+			</h3>
+		  </div>
+		  <div id="collapse6" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading6">
+			<div class="panel-body px-3 mb-4">
+			  <p>This website is configured to make purchasing an EARNS domain as simple as possible. When you type in a domain on the "register" tab it will automatically forward your transaction to the relevant "registrar" contract, as each TLD is controlled by a seperate and independent registrar.</p>
+			  <p>When making a purchase, you'll first make a 'commitment' - this commitment is an encrypted confirmation of your intent to purchase a domain to prevent front-running and disputes.</p>
+			  <p>After the commitment has been approved, you'll need to wait one minute before sending a transaction to finalize the registration.</p>
+			  <p>These two seperate transactions are managed automatically on our website, but the time gap does not wait on a successful transaction response. So you will need to ensure you make a transaction using sufficient gas.</p>
+			  <p>If you do not wish to use this site, you can directly interact with the registrar contract of your choice. You can look up these registrar on our "contracts" page. They have all been confirmed and supplied with an ABI on Etherscan making them easy to interact with.</p>
+			</div>
+		  </div>
+		</div>
+		<div class="panel panel-default">
+		  <div class="panel-heading p-3 mb-3" role="tab" id="heading7">
+			<h3 class="panel-title">
+			  <a class="collapsed" role="button" title="" data-toggle="collapse" data-parent="#accordion" href="#collapse7" aria-expanded="true" aria-controls="collapse7">
+				Once I purchase an EARNS domain, what should I do to configure it?
+			  </a>
+			</h3>
+		  </div>
+		  <div id="collapse7" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading7">
+			<div class="panel-body px-3 mb-4">
+			  <p>Each EARNS domain uses its own independent resolver, to simplify partnership integrations and to allow for unique TLDs to have their own unique functionality in the future.</p>
+			  <p>Once you've purchased your domain, you'll want to ensure two core pieces of resolver information are configured.</p>
+			  <p>The first is setting your Ethereum address. Which can be done on the "Manage" page of our site, or by using the command "setAddr(node, address)" on the smart contract. <i>(Note to developers: If you are integrating the resolver smart contract, please note that setAddr is an overloaded function with two versions. One for setting Ethereum addresses, and one for setting addresses for other tokens. To manage Ethereum addresses within an app using something like EthersJS you will need to declare the function explicitly as "setAddr(bytes32,address)")</i></p>
+			  <p>The other parameter you'll want to configure is the domain name using the setName function. If you are doing this on the EARNS website, this second transaction will be done for you automatically.</p>
+			  <p>This name function allows the resolver to return a simple plaintext string of the domain.</p>
+			</div>
+		  </div>
+		</div>
+		<div class="panel panel-default">
+		  <div class="panel-heading p-3 mb-3" role="tab" id="heading8">
+			<h3 class="panel-title">
+			  <a class="collapsed" role="button" title="" data-toggle="collapse" data-parent="#accordion" href="#collapse8" aria-expanded="true" aria-controls="collapse8">
+				Can I currently use EARNS names in tools like MetaMask or exchanges?
+			  </a>
+			</h3>
+		  </div>
+		  <div id="collapse8" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading8">
+			<div class="panel-body px-3 mb-4">
+			  <p>As EARNS is in its Alpha launch, we currently have limited integrations. We're currently actively working with partners in order to be able to have EARNS names resolve in your favorite tools and will have updates for this shortly.</p>
+			</div>
+		  </div>
+		</div>
+		<div class="panel panel-default">
+		  <div class="panel-heading p-3 mb-3" role="tab" id="heading9">
+			<h3 class="panel-title">
+			  <a class="collapsed" role="button" title="" data-toggle="collapse" data-parent="#accordion" href="#collapse9" aria-expanded="true" aria-controls="collapse9">
+				Why are some places unsafe to purchase EARNS names from and what should I look out for?
+			  </a>
+			</h3>
+		  </div>
+		  <div id="collapse9" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading9">
+			<div class="panel-body px-3 mb-4">
+			  <p>EARNS follows the namehash EIP-137 for name hashes which are non-human readable.</p>
+			  <p>For this reason, ENS relies on resolvers to provide human readable strings to identify the specific name of a token.</p>
+			  <p>When implemented properly, a DApp should resolve the human readable string from a resolver, and then apply the EIP-137 namehash to that string in order to ensure they match.</p>
+			  <p>It is however possible for a DApp to improperly implement this system and to fail to check or validate a domain name, thus allowing for domain spoofing.</p>
+			  <p>For this reason we encourage users to only purchase from the EARNS website, directly from contracts, or from our partners at OpenSea who have implemented full validation checks.</p>
+			</div>
+		  </div>
+		</div>
+		<div class="panel panel-default">
+		  <div class="panel-heading p-3 mb-3" role="tab" id="heading10">
+			<h3 class="panel-title">
+			  <a class="collapsed" role="button" title="" data-toggle="collapse" data-parent="#accordion" href="#collapse10" aria-expanded="true" aria-controls="collapse10">
+				What does it cost to purchase an EARNS domain?
+			  </a>
+			</h3>
+		  </div>
+		  <div id="collapse10" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading10">
+			<div class="panel-body px-3 mb-4">
+			  <p>EARNS domains through our website are sold on an annualized basis.</p>
+			  <p>Different TLDs have different price ranges, depending on if their target audience is commercial or personal use.</p>
+			  <p>We also increase the price based on the length of the domain, meaning that shorter names cost more.</p>
+			  <p>The price for different TLDs is outlined on the prices page of this website. But the annual renewal fee ranges from $10 - $1000+</p>
+			  <p>This pricing range is intended to prevent domain squatting. Since the EARNS team is unable to takeback a domain after registration, the only way to prevent squatters is using fee incentives that would make squatting without using a domain less likely to be a lucrative experience.</p>
+			</div>
+		  </div>
+		</div>
+		<div class="panel panel-default">
+		  <div class="panel-heading p-3 mb-3" role="tab" id="heading11">
+			<h3 class="panel-title">
+			  <a class="collapsed" role="button" title="" data-toggle="collapse" data-parent="#accordion" href="#collapse11" aria-expanded="true" aria-controls="collapse11">
+				Is there a limit to the domain name length I can register like with the initial ENS offering?
+			  </a>
+			</h3>
+		  </div>
+		  <div id="collapse11" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading11">
+			<div class="panel-body px-3 mb-4">
+			  <p>Unlike with the initial ENS offering, there is currently no reserve or block on registering shortnames. Any user, so long as they pay the fee, may register a short name.</p>
+			</div>
+		  </div>
+		</div>
+		<div class="panel panel-default">
+		  <div class="panel-heading p-3 mb-3" role="tab" id="heading12">
+			<h3 class="panel-title">
+			  <a class="collapsed" role="button" title="" data-toggle="collapse" data-parent="#accordion" href="#collapse12" aria-expanded="true" aria-controls="collapse12">
+				Are there auctions taking place for speciality names?
+			  </a>
+			</h3>
+		  </div>
+		  <div id="collapse12" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading12">
+			<div class="panel-body px-3 mb-4">
+			  <p>Short names are not forced into an auction scenario.</p>
+			  <p>However, the EARNS team recognizes that there is high demand for certain speciality/generic wordmark or trade term domains, and that to release those on a first come, first serve basis would not be fair to all interested parties.</p>
+			  <p>For this reason, the EARNs team will register some key domains prior to the launch of a new TLD and submit them for auction via OpenSea rather than allowing them to be sold on a first come, first serve manner.</p>
+			  <p>Rather than this being all domain names under 7 characters in length, as with ENS, we expect these auctions to include, on average, 30 - 60 domains per TLD.</p>
+			  <p>The domain auctions will be spread out over time and announced via our newsletter to ensure fair access.</p>
+			</div>
+		  </div>
+		</div>
+		<div class="panel panel-default">
+		  <div class="panel-heading p-3 mb-3" role="tab" id="heading13">
+			<h3 class="panel-title">
+			  <a class="collapsed" role="button" title="" data-toggle="collapse" data-parent="#accordion" href="#collapse13" aria-expanded="true" aria-controls="collapse13">
+				Can I get my own TLD?
+			  </a>
+			</h3>
+		  </div>
+		  <div id="collapse13" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading13">
+			<div class="panel-body px-3 mb-4">
+			  <p>EARNS supports the ability to create custom TLDs for projects and partners, however, the creation and on-going management of these TLDs does include a signifigant cost.</p>
+			  <p>Partners interested in a custom TLD can reach out to us at tld@earns.domains - prices for starting your own TLD range from $25,000 - $250,000+ annually, depending on features, integrations, and user volume.</p>
+			  <p>Partners whom reach more than 100,000+ users, may apply to have a custom TLD without payment, that EARNS will manage, so long as users are billed for the TLD. Affiliate arrangements and revenue sharing are available for such partners.</p>
+			</div>
+		  </div>
+		</div>
+		<div class="panel panel-default">
+		  <div class="panel-heading p-3 mb-3" role="tab" id="heading14">
+			<h3 class="panel-title">
+			  <a class="collapsed" role="button" title="" data-toggle="collapse" data-parent="#accordion" href="#collapse14" aria-expanded="true" aria-controls="collapse14">
+				Does EARNS support non-English, non-ASCII and emoji characters?
+			  </a>
+			</h3>
+		  </div>
+		  <div id="collapse14" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading14">
+			<div class="panel-body px-3 mb-4">
+			  <p>Yes. EARNS supports all character types since all names are standardized and in turn stored as a hash. In theory, you could even set a picture as a domain name.</p>
+			  <p>However, many applications may be unable to interact with EARNS domains that do not use standard characters.</p>
+			  <p>In most cases, English, Spanish, German, Latin, Russian and Chinese character sets are supported, and emojis are supported via punycode.</p>
+			  <p>The EARNS website itself does not currently guarentee functionality when working with non-English characters. It is recommended that you use the registrar contracts directly to create these types of domain.</p>
+			  <p>However, we do support a few emoji based and international TLDs, as well as emoji domains, that are directly listed with our partners at OpenSea.</p>
+			</div>
+		  </div>
+		</div>
+		<div class="panel panel-default">
+		  <div class="panel-heading p-3 mb-3" role="tab" id="heading15">
+			<h3 class="panel-title">
+			  <a class="collapsed" role="button" title="" data-toggle="collapse" data-parent="#accordion" href="#collapse15" aria-expanded="true" aria-controls="collapse15">
+				I'm a partner interested in integrating EARNS, how should I get started?
+			  </a>
+			</h3>
+		  </div>
+		  <div id="collapse15" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading15">
+			<div class="panel-body px-3 mb-4">
+			  <p>Partners who have already listed ENS will have no problem integrating the EARNS system.</p>
+			  <p>EARNS has its own primary registry contract that can be used to identify the relevant resolvers for each TLD. Each TLD in turn has its own unique registrar and resolver.</p>
+			  <p>With ENS you likely integrated with the public resolver and ETH registrar controller. Our system uses an almost identical ABI, and simple has different resolver/registrars based on the TLD.</p>
+			  <p>If you haven't yet integrated with ENS and are looking for support in integrating EARNS, please reach out to partnerships@earns.domains</p>
+			</div>
+		  </div>
+		</div>
+		<div class="panel panel-default">
+		  <div class="panel-heading p-3 mb-3" role="tab" id="heading16">
+			<h3 class="panel-title">
+			  <a class="collapsed" role="button" title="" data-toggle="collapse" data-parent="#accordion" href="#collapse16" aria-expanded="true" aria-controls="collapse16">
+				I represent a different blockchain can you integrate EARNS with our chain?
+			  </a>
+			</h3>
+		  </div>
+		  <div id="collapse16" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading16">
+			<div class="panel-body px-3 mb-4">
+			  <p>If you are an EVM based blockchain that supports solidity smart contracts, we'd be happy to integrate EARNS support onto your blockchain. Such teams can reach out to partnerships@earns.domains to discuss grant funding costs for such integrations.</p>
+			  <p>If you are a non-EVM based blockchain, we can likely still offer some limited functionality in the future when our EARNS DNS API sidechain is available. Please reach out and let us know of your interest and budget so we can support.</p>
+			</div>
+		  </div>
+		</div>
+				<div class="panel panel-default">
+		  <div class="panel-heading p-3 mb-3" role="tab" id="heading17">
+			<h3 class="panel-title">
+			  <a class="collapsed" role="button" title="" data-toggle="collapse" data-parent="#accordion" href="#collapse17" aria-expanded="true" aria-controls="collapse17">
+				How is EARNS governed?
+			  </a>
+			</h3>
+		  </div>
+		  <div id="collapse17" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading17">
+			<div class="panel-body px-3 mb-4">
+			  <p>Currently EARNS is a privately held entity.</p>
+			  <p>However, the EARNS system is configured in such a manner that it is not possible for the team to seize, edit, reclaim, modify or overwrite your domain name once you own it as long as you continue to make your annual payments.</p>
+			  <p>In the future we intend to decentralize the governance of the EARNS protocol through an $EARNS token.</p>
+			</div>
+		  </div>
+		</div>
+	  </div>
+  
+  </div>
+</section>
+</div>
+<div id="prices" class="tabcontent">
+<p>Prices for EARNS domains currently depend on:
+<ul>
+<li>The TLD.
+<li>If the TLD is for commercial or personal use.
+<li>The length of the domain.
+</ul>
+</br>
+All prices are based in USD but billed in ETH. The pricing data is powered by Chainlink oracles.
+</p>
+<p>Currently, commercial use domains like .defi, .dapp, .dex, .cex, .staking, .pool and .dao have the follwing cost scales:</p>
+<ul>
+<li>1 Character domains: $1000/year
+<li>2 Character domains: $750/year
+<li>3 Character domains: $500/year
+<li>4 Character domains: $250/year
+<li>5 Character domains: $100/year
+<li>6+ Character domains: $18/year
+</ul>
+<br>
+<p>Emoji/International TLDs have the following cost scales:</p></br>
+<ul>
+<li>1 Character domains: $1000/year
+<li>2 Character domains: $500/year
+<li>3 Character domains: $300/year
+<li>4 Character domains: $175/year
+<li>5 Character domains: $75/year
+<li>6+ Character domains: $15/year
+</ul>
+<br>
+<p>All other domains/TLDs have the following cost scales:</p></br>
+<ul>
+<li>1 Character domains: $750/year
+<li>2 Character domains: $500/year
+<li>3 Character domains: $300/year
+<li>4 Character domains: $150/year
+<li>5 Character domains: $50/year
+<li>6+ Character domains: $7/year
+</ul>
 
 </div>
 <script type="module" crossorigin="anonymous">
