@@ -175,10 +175,8 @@ If you are a blockchain, dapp, exchange or other project interested in your own 
 <label for="committer" class="col-lg-2 control-label"></label>
 <input id="committer" type="text">
 <button id="committerbtn">commit</button>
-
-
-<br><br><br>
-<b><u>Status:</b></u><br><br>
+<br>
+<b><u>Status:</b></u><br>
 <p id="status"></p>
 <span id="timer">
 	<span id="time"></span>
@@ -620,11 +618,13 @@ function setUserAddress(output){
   
   const resolverABI = [{"inputs":[{"internalType":"contract ENS","name":"_ens","type":"address"}],"payable":false,"stateMutability":"nonpayable","type":"constructor"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"bytes32","name":"node","type":"bytes32"},{"indexed":true,"internalType":"uint256","name":"contentType","type":"uint256"}],"name":"ABIChanged","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"bytes32","name":"node","type":"bytes32"},{"indexed":false,"internalType":"address","name":"a","type":"address"}],"name":"AddrChanged","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"bytes32","name":"node","type":"bytes32"},{"indexed":false,"internalType":"uint256","name":"coinType","type":"uint256"},{"indexed":false,"internalType":"bytes","name":"newAddress","type":"bytes"}],"name":"AddressChanged","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"bytes32","name":"node","type":"bytes32"},{"indexed":true,"internalType":"address","name":"owner","type":"address"},{"indexed":true,"internalType":"address","name":"target","type":"address"},{"indexed":false,"internalType":"bool","name":"isAuthorised","type":"bool"}],"name":"AuthorisationChanged","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"bytes32","name":"node","type":"bytes32"},{"indexed":false,"internalType":"bytes","name":"hash","type":"bytes"}],"name":"ContenthashChanged","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"bytes32","name":"node","type":"bytes32"},{"indexed":false,"internalType":"bytes","name":"name","type":"bytes"},{"indexed":false,"internalType":"uint16","name":"resource","type":"uint16"},{"indexed":false,"internalType":"bytes","name":"record","type":"bytes"}],"name":"DNSRecordChanged","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"bytes32","name":"node","type":"bytes32"},{"indexed":false,"internalType":"bytes","name":"name","type":"bytes"},{"indexed":false,"internalType":"uint16","name":"resource","type":"uint16"}],"name":"DNSRecordDeleted","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"bytes32","name":"node","type":"bytes32"}],"name":"DNSZoneCleared","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"bytes32","name":"node","type":"bytes32"},{"indexed":false,"internalType":"bytes","name":"lastzonehash","type":"bytes"},{"indexed":false,"internalType":"bytes","name":"zonehash","type":"bytes"}],"name":"DNSZonehashChanged","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"bytes32","name":"node","type":"bytes32"},{"indexed":true,"internalType":"bytes4","name":"interfaceID","type":"bytes4"},{"indexed":false,"internalType":"address","name":"implementer","type":"address"}],"name":"InterfaceChanged","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"bytes32","name":"node","type":"bytes32"},{"indexed":false,"internalType":"string","name":"name","type":"string"}],"name":"NameChanged","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"bytes32","name":"node","type":"bytes32"},{"indexed":false,"internalType":"bytes32","name":"x","type":"bytes32"},{"indexed":false,"internalType":"bytes32","name":"y","type":"bytes32"}],"name":"PubkeyChanged","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"bytes32","name":"node","type":"bytes32"},{"indexed":true,"internalType":"string","name":"indexedKey","type":"string"},{"indexed":false,"internalType":"string","name":"key","type":"string"}],"name":"TextChanged","type":"event"},{"constant":true,"inputs":[{"internalType":"bytes32","name":"node","type":"bytes32"},{"internalType":"uint256","name":"contentTypes","type":"uint256"}],"name":"ABI","outputs":[{"internalType":"uint256","name":"","type":"uint256"},{"internalType":"bytes","name":"","type":"bytes"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"internalType":"bytes32","name":"node","type":"bytes32"}],"name":"addr","outputs":[{"internalType":"address payable","name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"internalType":"bytes32","name":"node","type":"bytes32"},{"internalType":"uint256","name":"coinType","type":"uint256"}],"name":"addr","outputs":[{"internalType":"bytes","name":"","type":"bytes"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"internalType":"bytes32","name":"","type":"bytes32"},{"internalType":"address","name":"","type":"address"},{"internalType":"address","name":"","type":"address"}],"name":"authorisations","outputs":[{"internalType":"bool","name":"","type":"bool"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"internalType":"bytes32","name":"node","type":"bytes32"}],"name":"clearDNSZone","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[{"internalType":"bytes32","name":"node","type":"bytes32"}],"name":"contenthash","outputs":[{"internalType":"bytes","name":"","type":"bytes"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"internalType":"bytes32","name":"node","type":"bytes32"},{"internalType":"bytes32","name":"name","type":"bytes32"},{"internalType":"uint16","name":"resource","type":"uint16"}],"name":"dnsRecord","outputs":[{"internalType":"bytes","name":"","type":"bytes"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"internalType":"bytes32","name":"node","type":"bytes32"},{"internalType":"bytes32","name":"name","type":"bytes32"}],"name":"hasDNSRecords","outputs":[{"internalType":"bool","name":"","type":"bool"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"internalType":"bytes32","name":"node","type":"bytes32"},{"internalType":"bytes4","name":"interfaceID","type":"bytes4"}],"name":"interfaceImplementer","outputs":[{"internalType":"address","name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"internalType":"bytes32","name":"node","type":"bytes32"}],"name":"name","outputs":[{"internalType":"string","name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"internalType":"bytes32","name":"node","type":"bytes32"}],"name":"pubkey","outputs":[{"internalType":"bytes32","name":"x","type":"bytes32"},{"internalType":"bytes32","name":"y","type":"bytes32"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"internalType":"bytes32","name":"node","type":"bytes32"},{"internalType":"uint256","name":"contentType","type":"uint256"},{"internalType":"bytes","name":"data","type":"bytes"}],"name":"setABI","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"internalType":"bytes32","name":"node","type":"bytes32"},{"internalType":"uint256","name":"coinType","type":"uint256"},{"internalType":"bytes","name":"a","type":"bytes"}],"name":"setAddr","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"internalType":"bytes32","name":"node","type":"bytes32"},{"internalType":"address","name":"a","type":"address"}],"name":"setAddr","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"internalType":"bytes32","name":"node","type":"bytes32"},{"internalType":"address","name":"target","type":"address"},{"internalType":"bool","name":"isAuthorised","type":"bool"}],"name":"setAuthorisation","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"internalType":"bytes32","name":"node","type":"bytes32"},{"internalType":"bytes","name":"hash","type":"bytes"}],"name":"setContenthash","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"internalType":"bytes32","name":"node","type":"bytes32"},{"internalType":"bytes","name":"data","type":"bytes"}],"name":"setDNSRecords","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"internalType":"bytes32","name":"node","type":"bytes32"},{"internalType":"bytes4","name":"interfaceID","type":"bytes4"},{"internalType":"address","name":"implementer","type":"address"}],"name":"setInterface","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"internalType":"bytes32","name":"node","type":"bytes32"},{"internalType":"string","name":"name","type":"string"}],"name":"setName","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"internalType":"bytes32","name":"node","type":"bytes32"},{"internalType":"bytes32","name":"x","type":"bytes32"},{"internalType":"bytes32","name":"y","type":"bytes32"}],"name":"setPubkey","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"internalType":"bytes32","name":"node","type":"bytes32"},{"internalType":"string","name":"key","type":"string"},{"internalType":"string","name":"value","type":"string"}],"name":"setText","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"internalType":"bytes32","name":"node","type":"bytes32"},{"internalType":"bytes","name":"hash","type":"bytes"}],"name":"setZonehash","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[{"internalType":"bytes4","name":"interfaceID","type":"bytes4"}],"name":"supportsInterface","outputs":[{"internalType":"bool","name":"","type":"bool"}],"payable":false,"stateMutability":"pure","type":"function"},{"constant":true,"inputs":[{"internalType":"bytes32","name":"node","type":"bytes32"},{"internalType":"string","name":"key","type":"string"}],"name":"text","outputs":[{"internalType":"string","name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"internalType":"bytes32","name":"node","type":"bytes32"}],"name":"zonehash","outputs":[{"internalType":"bytes","name":"","type":"bytes"}],"payable":false,"stateMutability":"view","type":"function"}];
 
+  //placeholder will be updated when contracts deployed on mainnet
 const registrarMap = {
 	defi: '0x36593DA4b6E642339Ac37B64791430FE0c911173',
 	sample: '0x36593DA4b6E642339Ac37B64791430FE0c911170',
 };
 
+//placeholder will be updated when contracts deployed on mainnet
 const resolverMap = {
 	defi: '0x6e4498BdE4bD9c5Aa93FFf1FF609E550cCFe1fBF',
 	sample: '0x6e4498BdE4bD9c5Aa93FFf1FF609E550cCFe1fBF',
@@ -634,12 +634,13 @@ $("#button").click(function() {
 			console.log("function start");
 			var name = $("#name").val()
 			var tld = name.split('.').pop();
+			var label = name.split('.').shift();
 			if(tld in registrarMap){
 				var registrarAddr = registrarMap[tld];
 				console.log(registrarAddr);
 				var contract = new ethers.Contract(registrarAddr, tokenABI, provider);
 				console.log(contract);
-				contract.available(name).then((available) => {
+				contract.available(label).then((available) => {
 				console.log(name, 'is', available);
 				if(available == true){
 					document.getElementById("availresult").innerHTML = "<strong><span style='color:green'></br>That domain name is available to register.</span></strong>";
@@ -657,11 +658,12 @@ $("#button").click(function() {
 $("#pricecheckbtn").click(function() {
 			var name = $("#pricecheck").val()
 			var tld = name.split('.').pop();
+			var label = name.split('.').shift();
 			if(registrarMap.hasOwnProperty(tld)){
 				var registrarAddr = registrarMap[tld];
 				var contract = new ethers.Contract(registrarAddr, tokenABI, provider);
 				console.log(name);
-				let currentPrice = contract.rentPrice(name,31536000).then((response) => {
+				let currentPrice = contract.rentPrice(label,31536000).then((response) => {
 					var ethprice = ethers.utils.formatEther(response, 'ether')
 					document.getElementById("priceresult").innerHTML = '<br>The price to register that domain for <u>one year</u> is <strong>' + ethprice + '</strong> ETH';
 					console.log(ethers.utils.formatEther(response, 'ether'));
@@ -678,6 +680,9 @@ $("#committerbtn").click(function() {
 			var name = $("#committer").val()
 			console.log(addr);
 			var tld = name.split('.').pop();
+			var label = name.split('.').shift();
+			var estGasPrice = provider.getGasPrice(); //promise returns bignumber
+			console.log(estGasPrice);
 			if(registrarMap.hasOwnProperty(tld)){
 				var r = Math.random().toString(30).substring(10);
 				var secret = ethers.utils.formatBytes32String(r);
@@ -686,16 +691,21 @@ $("#committerbtn").click(function() {
 				console.log(secret);
 				var registrarAddr = registrarMap[name.split('.').pop()];
 				var contract = new ethers.Contract(registrarAddr, tokenABI, provider);
-					let commits = contract.makeCommitment(commitname,addr,secret).then((response) => {
+					let commits = contract.makeCommitment(label,addr,secret).then((response) => {
+					//We're not catching errors of failed transaction, so if transaction 1 fails, transaction two will still go ahead?
 					console.log(commits);
 					var commited = response;
 					console.log(commited);
-					var contractwrite = new ethers.Contract(registrarAddr, tokenABI, signer);
+					let overrides1 = {
+						gasPrice: estGasPrice,
+						gasLimit: 100000
+					};
+					var contractwrite = new ethers.Contract(registrarAddr, tokenABI, signer, overrides1);
 					contractwrite.commit(commited);
 					var counter = 90;
 					var interval = setInterval(function() {
 						counter--;
-						// Display 'counter' wherever you want to display it.
+						// Would be better to have counter only start after transaction success, but haven't dealt with error/confirmation catching yet.
 						if (counter <= 0) {
 							clearInterval(interval);
 							$('#timer').html("<h3>Count down complete</h3>");  
@@ -705,17 +715,17 @@ $("#committerbtn").click(function() {
 							console.log("Timer " + counter);
 							}
 						}, 1000);
-					contract.rentPrice(commitname,31536000).then((response	) => {
+					contract.rentPrice(label,31536000).then((response	) => {
 					var regPrice = ethers.utils.formatEther(response, 'ether');
 					var unencodedPrice = response.add(response.div(10));
 					setTimeout(() => {
 					let overrides = {
-						gasPrice: 20000000000,
+						gasPrice: estGasPrice,
 						gasLimit: 400000,
 						value: unencodedPrice
 					};
 					var commitname2 = $("#committer").val()
-					contractwrite.register(commitname2,addr,31536000,secret,overrides).then(tx => {
+					contractwrite.register(label,addr,31536000,secret,overrides).then(tx => {
 						console.log(commitname2);
 						console.log(addr);
 						console.log(secret);
@@ -734,18 +744,23 @@ $("#committerbtn").click(function() {
 		
 $("#managebtn").click(function() {
 			console.log("function start");
+			var estGasPrice = provider.getGasPrice(); //promise returns bignumber
 			var resolveaddr = $("#resolveaddr").val()
 			var tld = resolveaddr.split('.').pop();
+			var label = resolveaddr.split('.').shift();
+			console.log(label);
 			if(tld in resolverMap){
 				var resolverAddr = resolverMap[tld];
-				var namehash = ethers.utils.namehash($("#resolveaddr").val());
+				var namehash = ethers.utils.namehash(resolveaddr);
 				var walletaddr = $("#walletaddr").val();
 				var contractwriter = new ethers.Contract(resolverAddr, resolverABI, signer)
-				console.log(resolverABI);
-				console.log(resolverAddr);
-				console.log(signer);
-				console.log(contractwriter);
-				contractwriter["setAddr(bytes32,address)"](namehash, walletaddr).then(() => {})
+				console.log(namehash);
+				let overrides = {
+						gasPrice: estGasPrice,
+						gasLimit: 400000
+					};
+				contractwriter["setAddr(bytes32,address)"](namehash, walletaddr, overrides).then(() => {})
+				contractwriter.setName(namehash,resolveaddr,overrides)
 			} else if(tld == "eth"){
 				document.getElementById("availresult").innerHTML = "<br><strong><span style='color:red'>That domain isn't managed by the EARNS System, it is managed by ENS. You'll have to visit their website to manage that domain.</strong></span>"
 			} else {
