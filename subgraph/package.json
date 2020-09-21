@@ -1,0 +1,21 @@
+{
+  "name": "defi-ens-subgraph",
+  "version": "1.0.0",
+  "repository": "https://github.com/luckyyang/ela-ens-subgraph",
+  "license": "MIT",
+  "scripts": {
+    "setup": "npm run codegen && npm run create-local && npm run deploy-local",
+    "codegen": "graph codegen --output-dir src/types/",
+    "create-local": "graph create testnet/defi-ens --node http://127.0.0.1:8020",
+    "remove-local": "graph remove testnet/defi-ens --node http://127.0.0.1:8020",
+    "build": "graph build",
+    "deploy-local": "graph deploy testnet/defi-ens --debug --ipfs http://localhost:5001 --node http://127.0.0.1:8020/",
+    "deploy": "graph deploy testnet/defi-ens --ipfs https://api.thegraph.com/ipfs/ --node https://api.thegraph.com/deploy/",
+    "watch-local": "graph deploy testnet/defi-ens --watch --debug --node http://127.0.0.1:8020/ --ipfs http://localhost:5001"
+  },
+  "devDependencies": {
+    "@graphprotocol/graph-cli": "^0.17.1",
+    "@graphprotocol/graph-ts": "^0.17.0"
+  },
+  "dependencies": {}
+}

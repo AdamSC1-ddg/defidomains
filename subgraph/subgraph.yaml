@@ -1,0 +1,990 @@
+specVersion: 0.0.3
+description: >-
+  A secure & decentralized way to address resources on and off the blockchain
+  using simple, human-readable names. Access domains and transfer history.
+repository: 'https://github.com/ensdomains/ens-subgraph'
+schema:
+  file: ./schema.graphql
+dataSources:
+ - kind: ethereum/contract
+   name: ENSRegistry
+   network: mainnet
+   source:
+     address: '0x95Ed32e39e688d140B03FfA501a03c0543a8d07b'
+     abi: EnsRegistry
+   mapping:
+     kind: ethereum/events
+     apiVersion: 0.0.3
+     language: wasm/assemblyscript
+     file: ./src/ensRegistry.ts
+     entities:
+       - Domain
+       - Account
+       - Resolver
+     abis:
+      - name: EnsRegistry
+        file: ./abis/Registry.json
+     eventHandlers:
+      - event: Transfer(indexed bytes32,address)
+        handler: handleTransfer
+      - event: NewOwner(indexed bytes32,indexed bytes32,address)
+        handler: handleNewOwner
+      - event: NewResolver(indexed bytes32,address)
+        handler: handleNewResolver
+      - event: NewTTL(indexed bytes32,uint64)
+        handler: handleNewTTL
+ - kind: ethereum/contract
+   name: Resolver
+   network: mainnet
+   source:
+     address: '0xa96eD805b3574d870C4D13612DF270a012d78D1a'
+     abi: Resolver
+   mapping:
+     kind: ethereum/events
+     apiVersion: 0.0.3
+     language: wasm/assemblyscript
+     file: ./src/resolver.ts
+     entities:
+       - AddrChanged
+       - MulticoinAddrChanged
+       - NameChanged
+       - AbiChanged
+       - PubkeyChanged
+       - Textchanged
+       - ContenthashChanged
+       - InterfaceChanged
+       - AuthorisationChanged
+     abis:
+       - name: Resolver
+         file: ./abis/PublicResolver.json
+     eventHandlers:
+       - event: ABIChanged(indexed bytes32,indexed uint256)
+         handler: handleABIChanged
+       - event: AddrChanged(indexed bytes32,address)
+         handler: handleAddrChanged
+       - event: AddressChanged(indexed bytes32,uint256,bytes)
+         handler: handleMulticoinAddrChanged
+       - event: AuthorisationChanged(indexed bytes32,indexed address,indexed address,bool)
+         handler: handleAuthorisationChanged
+       - event: ContenthashChanged(indexed bytes32,bytes)
+         handler: handleContentHashChanged
+       - event: InterfaceChanged(indexed bytes32,indexed bytes4,address)
+         handler: handleInterfaceChanged
+       - event: NameChanged(indexed bytes32,string)
+         handler: handleNameChanged
+       - event: PubkeyChanged(indexed bytes32,bytes32,bytes32)
+         handler: handlePubkeyChanged
+       - event: TextChanged(indexed bytes32,string,string)
+         handler: handleTextChanged
+ - kind: ethereum/contract
+   name: DefiBaseRegistrar
+   network: mainnet
+   source:
+     address: '0x523F38571f463c86acDa20F6E73794844e8EC00c'
+     abi: DefiBaseRegistrar
+   mapping:
+     kind: ethereum/events
+     apiVersion: 0.0.3
+     language: wasm/assemblyscript
+     file: ./src/DefiRegistrar.ts
+     entities:
+       - Registration
+       - NameRegistered
+       - NameMigrated
+       - NameRenewed
+       - NameTransferred
+     abis:
+       - name: DefiBaseRegistrar
+         file: ./abis/DefiBaseRegistrar.json
+     eventHandlers:
+       - event: NameMigrated(indexed uint256,indexed address,uint256)
+         handler: handleNameMigrated
+       - event: NameRegistered(indexed uint256,indexed address,uint256)
+         handler: handleNameRegistered
+       - event: NameRenewed(indexed uint256,uint256)
+         handler: handleNameRenewed
+       - event: Transfer(indexed address,indexed address,indexed uint256)
+         handler: handleNameTransferred
+ - kind: ethereum/contract
+   name: DefiRegistrarController
+   network: mainnet
+   source:
+     address: '0xeFFbdA505e9C9bA8172fa71A126b002DF6B74c15'
+     abi: DefiRegistrarController
+   mapping:
+     kind: ethereum/events
+     apiVersion: 0.0.3
+     language: wasm/assemblyscript
+     file: ./src/DefiRegistrar.ts
+     entities:
+       - Registration
+     abis:
+       - name: DefiRegistrarController
+         file: ./abis/DefiRegistrarController.json
+     eventHandlers:
+       - event: NameRegistered(string,indexed bytes32,indexed address,uint256,uint256)
+         handler: handleNameRegisteredByController
+ - kind: ethereum/contract
+   name: DappBaseRegistrar
+   network: mainnet
+   source:
+     address: '0xe9571C98F0DD8D82C4b3ac44Ba57eBa9861bC4a4'
+     abi: DappBaseRegistrar
+   mapping:
+     kind: ethereum/events
+     apiVersion: 0.0.3
+     language: wasm/assemblyscript
+     file: ./src/DappRegistrar.ts
+     entities:
+       - Registration
+       - NameRegistered
+       - NameMigrated
+       - NameRenewed
+       - NameTransferred
+     abis:
+       - name: DappBaseRegistrar
+         file: ./abis/DappBaseRegistrar.json
+     eventHandlers:
+       - event: NameMigrated(indexed uint256,indexed address,uint256)
+         handler: handleNameMigrated
+       - event: NameRegistered(indexed uint256,indexed address,uint256)
+         handler: handleNameRegistered
+       - event: NameRenewed(indexed uint256,uint256)
+         handler: handleNameRenewed
+       - event: Transfer(indexed address,indexed address,indexed uint256)
+         handler: handleNameTransferred
+ - kind: ethereum/contract
+   name: DappRegistrarController
+   network: mainnet
+   source:
+     address: '0xD15ef243b39904FdA2bABa4bEe3A8b1F179642bB'
+     abi: DappRegistrarController
+   mapping:
+     kind: ethereum/events
+     apiVersion: 0.0.3
+     language: wasm/assemblyscript
+     file: ./src/DappRegistrar.ts
+     entities:
+       - Registration
+     abis:
+       - name: DappRegistrarController
+         file: ./abis/DappRegistrarController.json
+     eventHandlers:
+       - event: NameRegistered(string,indexed bytes32,indexed address,uint256,uint256)
+         handler: handleNameRegisteredByController
+ - kind: ethereum/contract
+   name: DexBaseRegistrar
+   network: mainnet
+   source:
+     address: '0x3161e5618337B318362c39f3c7E670Ca23706C97'
+     abi: DexBaseRegistrar
+   mapping:
+     kind: ethereum/events
+     apiVersion: 0.0.3
+     language: wasm/assemblyscript
+     file: ./src/DexRegistrar.ts
+     entities:
+       - Registration
+       - NameRegistered
+       - NameMigrated
+       - NameRenewed
+       - NameTransferred
+     abis:
+       - name: DexBaseRegistrar
+         file: ./abis/DexBaseRegistrar.json
+     eventHandlers:
+       - event: NameMigrated(indexed uint256,indexed address,uint256)
+         handler: handleNameMigrated
+       - event: NameRegistered(indexed uint256,indexed address,uint256)
+         handler: handleNameRegistered
+       - event: NameRenewed(indexed uint256,uint256)
+         handler: handleNameRenewed
+       - event: Transfer(indexed address,indexed address,indexed uint256)
+         handler: handleNameTransferred
+ - kind: ethereum/contract
+   name: DexRegistrarController
+   network: mainnet
+   source:
+     address: '0x7E194209aB143929A68ae0d82a78B3718AbDAfc1'
+     abi: DexRegistrarController
+   mapping:
+     kind: ethereum/events
+     apiVersion: 0.0.3
+     language: wasm/assemblyscript
+     file: ./src/DexRegistrar.ts
+     entities:
+       - Registration
+     abis:
+       - name: DexRegistrarController
+         file: ./abis/DexRegistrarController.json
+     eventHandlers:
+       - event: NameRegistered(string,indexed bytes32,indexed address,uint256,uint256)
+         handler: handleNameRegisteredByController
+ - kind: ethereum/contract
+   name: YieldBaseRegistrar
+   network: mainnet
+   source:
+     address: '0x4f95132591A283c38CCA5583338f6cF3BC0713eb'
+     abi: YieldBaseRegistrar
+   mapping:
+     kind: ethereum/events
+     apiVersion: 0.0.3
+     language: wasm/assemblyscript
+     file: ./src/YieldRegistrar.ts
+     entities:
+       - Registration
+       - NameRegistered
+       - NameMigrated
+       - NameRenewed
+       - NameTransferred
+     abis:
+       - name: YieldBaseRegistrar
+         file: ./abis/YieldBaseRegistrar.json
+     eventHandlers:
+       - event: NameMigrated(indexed uint256,indexed address,uint256)
+         handler: handleNameMigrated
+       - event: NameRegistered(indexed uint256,indexed address,uint256)
+         handler: handleNameRegistered
+       - event: NameRenewed(indexed uint256,uint256)
+         handler: handleNameRenewed
+       - event: Transfer(indexed address,indexed address,indexed uint256)
+         handler: handleNameTransferred
+ - kind: ethereum/contract
+   name: YieldRegistrarController
+   network: mainnet
+   source:
+     address: '0x553e94E747d23279beBf241c3b806b257Ad639e9'
+     abi: YieldRegistrarController
+   mapping:
+     kind: ethereum/events
+     apiVersion: 0.0.3
+     language: wasm/assemblyscript
+     file: ./src/YieldRegistrar.ts
+     entities:
+       - Registration
+     abis:
+       - name: YieldRegistrarController
+         file: ./abis/YieldRegistrarController.json
+     eventHandlers:
+       - event: NameRegistered(string,indexed bytes32,indexed address,uint256,uint256)
+         handler: handleNameRegisteredByController
+ - kind: ethereum/contract
+   name: DaoBaseRegistrar
+   network: mainnet
+   source:
+     address: '0xdCaeb079f635BfA9524496759128A6F625939B35'
+     abi: DaoBaseRegistrar
+   mapping:
+     kind: ethereum/events
+     apiVersion: 0.0.3
+     language: wasm/assemblyscript
+     file: ./src/DaoRegistrar.ts
+     entities:
+       - Registration
+       - NameRegistered
+       - NameMigrated
+       - NameRenewed
+       - NameTransferred
+     abis:
+       - name: DaoBaseRegistrar
+         file: ./abis/DaoBaseRegistrar.json
+     eventHandlers:
+       - event: NameMigrated(indexed uint256,indexed address,uint256)
+         handler: handleNameMigrated
+       - event: NameRegistered(indexed uint256,indexed address,uint256)
+         handler: handleNameRegistered
+       - event: NameRenewed(indexed uint256,uint256)
+         handler: handleNameRenewed
+       - event: Transfer(indexed address,indexed address,indexed uint256)
+         handler: handleNameTransferred
+ - kind: ethereum/contract
+   name: DaoRegistrarController
+   network: mainnet
+   source:
+     address: '0xE8942e8C90885699cbBAB22Ea9F73021d5C1290f'
+     abi: DaoRegistrarController
+   mapping:
+     kind: ethereum/events
+     apiVersion: 0.0.3
+     language: wasm/assemblyscript
+     file: ./src/DaoRegistrar.ts
+     entities:
+       - Registration
+     abis:
+       - name: DaoRegistrarController
+         file: ./abis/DaoRegistrarController.json
+     eventHandlers:
+       - event: NameRegistered(string,indexed bytes32,indexed address,uint256,uint256)
+         handler: handleNameRegisteredByController
+ - kind: ethereum/contract
+   name: NFTBaseRegistrar
+   network: mainnet
+   source:
+     address: '0x663027AA3dBf942e6093B7FEcC367E693F678858'
+     abi: NFTBaseRegistrar
+   mapping:
+     kind: ethereum/events
+     apiVersion: 0.0.3
+     language: wasm/assemblyscript
+     file: ./src/NFTRegistrar.ts
+     entities:
+       - Registration
+       - NameRegistered
+       - NameMigrated
+       - NameRenewed
+       - NameTransferred
+     abis:
+       - name: NFTBaseRegistrar
+         file: ./abis/NFTBaseRegistrar.json
+     eventHandlers:
+       - event: NameMigrated(indexed uint256,indexed address,uint256)
+         handler: handleNameMigrated
+       - event: NameRegistered(indexed uint256,indexed address,uint256)
+         handler: handleNameRegistered
+       - event: NameRenewed(indexed uint256,uint256)
+         handler: handleNameRenewed
+       - event: Transfer(indexed address,indexed address,indexed uint256)
+         handler: handleNameTransferred
+ - kind: ethereum/contract
+   name: NFTRegistrarController
+   network: mainnet
+   source:
+     address: '0x34cD3eb206e883CA63E6475DB35d7e7F5046061E'
+     abi: NFTRegistrarController
+   mapping:
+     kind: ethereum/events
+     apiVersion: 0.0.3
+     language: wasm/assemblyscript
+     file: ./src/NFTRegistrar.ts
+     entities:
+       - Registration
+     abis:
+       - name: NFTRegistrarController
+         file: ./abis/NFTRegistrarController.json
+     eventHandlers:
+       - event: NameRegistered(string,indexed bytes32,indexed address,uint256,uint256)
+         handler: handleNameRegisteredByController   
+ - kind: ethereum/contract
+   name: SolBaseRegistrar
+   network: mainnet
+   source:
+     address: '0x4968e298FDfefaf6155eF8D34c231FC0cE49Bd4b'
+     abi: SolBaseRegistrar
+   mapping:
+     kind: ethereum/events
+     apiVersion: 0.0.3
+     language: wasm/assemblyscript
+     file: ./src/SolRegistrar.ts
+     entities:
+       - Registration
+       - NameRegistered
+       - NameMigrated
+       - NameRenewed
+       - NameTransferred
+     abis:
+       - name: SolBaseRegistrar
+         file: ./abis/SolBaseRegistrar.json
+     eventHandlers:
+       - event: NameMigrated(indexed uint256,indexed address,uint256)
+         handler: handleNameMigrated
+       - event: NameRegistered(indexed uint256,indexed address,uint256)
+         handler: handleNameRegistered
+       - event: NameRenewed(indexed uint256,uint256)
+         handler: handleNameRenewed
+       - event: Transfer(indexed address,indexed address,indexed uint256)
+         handler: handleNameTransferred
+ - kind: ethereum/contract
+   name: SolRegistrarController
+   network: mainnet
+   source:
+     address: '0xA46B8559Bfb61407769F3bDD2D31D9702Dd21156'
+     abi: SolRegistrarController
+   mapping:
+     kind: ethereum/events
+     apiVersion: 0.0.3
+     language: wasm/assemblyscript
+     file: ./src/SolRegistrar.ts
+     entities:
+       - Registration
+     abis:
+       - name: SolRegistrarController
+         file: ./abis/SolRegistrarController.json
+     eventHandlers:
+       - event: NameRegistered(string,indexed bytes32,indexed address,uint256,uint256)
+         handler: handleNameRegisteredByController                 
+ - kind: ethereum/contract
+   name: YfiBaseRegistrar
+   network: mainnet
+   source:
+     address: '0x06d30d22589dfd49B3b12E1CD94634570F1852b2'
+     abi: YfiBaseRegistrar
+   mapping:
+     kind: ethereum/events
+     apiVersion: 0.0.3
+     language: wasm/assemblyscript
+     file: ./src/YfiRegistrar.ts
+     entities:
+       - Registration
+       - NameRegistered
+       - NameMigrated
+       - NameRenewed
+       - NameTransferred
+     abis:
+       - name: YfiBaseRegistrar
+         file: ./abis/YfiBaseRegistrar.json
+     eventHandlers:
+       - event: NameMigrated(indexed uint256,indexed address,uint256)
+         handler: handleNameMigrated
+       - event: NameRegistered(indexed uint256,indexed address,uint256)
+         handler: handleNameRegistered
+       - event: NameRenewed(indexed uint256,uint256)
+         handler: handleNameRenewed
+       - event: Transfer(indexed address,indexed address,indexed uint256)
+         handler: handleNameTransferred
+ - kind: ethereum/contract
+   name: YfiRegistrarController
+   network: mainnet
+   source:
+     address: '0x49AcEf7F2dCFa7833b7AF3c6AB1A79F35301c57e'
+     abi: YfiRegistrarController
+   mapping:
+     kind: ethereum/events
+     apiVersion: 0.0.3
+     language: wasm/assemblyscript
+     file: ./src/YfiRegistrar.ts
+     entities:
+       - Registration
+     abis:
+       - name: YfiRegistrarController
+         file: ./abis/YfiRegistrarController.json
+     eventHandlers:
+       - event: NameRegistered(string,indexed bytes32,indexed address,uint256,uint256)
+         handler: handleNameRegisteredByController 
+ - kind: ethereum/contract
+   name: EthSymbolBaseRegistrar
+   network: mainnet
+   source:
+     address: '0x6B94fAb1B0427Cd06953E7140A850E474e6800A2'
+     abi: EthSymbolBaseRegistrar
+   mapping:
+     kind: ethereum/events
+     apiVersion: 0.0.3
+     language: wasm/assemblyscript
+     file: ./src/EthSymbolRegistrar.ts
+     entities:
+       - Registration
+       - NameRegistered
+       - NameMigrated
+       - NameRenewed
+       - NameTransferred
+     abis:
+       - name: EthSymbolBaseRegistrar
+         file: ./abis/EthSymbolBaseRegistrar.json
+     eventHandlers:
+       - event: NameMigrated(indexed uint256,indexed address,uint256)
+         handler: handleNameMigrated
+       - event: NameRegistered(indexed uint256,indexed address,uint256)
+         handler: handleNameRegistered
+       - event: NameRenewed(indexed uint256,uint256)
+         handler: handleNameRenewed
+       - event: Transfer(indexed address,indexed address,indexed uint256)
+         handler: handleNameTransferred
+ - kind: ethereum/contract
+   name: EthSymbolRegistrarController
+   network: mainnet
+   source:
+     address: '0x5a5f8164fED60e8bc0Dc672fd6cef1Cb8960F638'
+     abi: EthSymbolRegistrarController
+   mapping:
+     kind: ethereum/events
+     apiVersion: 0.0.3
+     language: wasm/assemblyscript
+     file: ./src/EthSymbolRegistrar.ts
+     entities:
+       - Registration
+     abis:
+       - name: EthSymbolRegistrarController
+         file: ./abis/EthSymbolRegistrarController.json
+     eventHandlers:
+       - event: NameRegistered(string,indexed bytes32,indexed address,uint256,uint256)
+         handler: handleNameRegisteredByController            
+ - kind: ethereum/contract
+   name: UnicornBaseRegistrar
+   network: mainnet
+   source:
+     address: '0xEc3076c972Ee38a4480a0c66a332B579d1AeD340'
+     abi: UnicornBaseRegistrar
+   mapping:
+     kind: ethereum/events
+     apiVersion: 0.0.3
+     language: wasm/assemblyscript
+     file: ./src/UnicornRegistrar.ts
+     entities:
+       - Registration
+       - NameRegistered
+       - NameMigrated
+       - NameRenewed
+       - NameTransferred
+     abis:
+       - name: UnicornBaseRegistrar
+         file: ./abis/UnicornBaseRegistrar.json
+     eventHandlers:
+       - event: NameMigrated(indexed uint256,indexed address,uint256)
+         handler: handleNameMigrated
+       - event: NameRegistered(indexed uint256,indexed address,uint256)
+         handler: handleNameRegistered
+       - event: NameRenewed(indexed uint256,uint256)
+         handler: handleNameRenewed
+       - event: Transfer(indexed address,indexed address,indexed uint256)
+         handler: handleNameTransferred
+ - kind: ethereum/contract
+   name: UnicornRegistrarController
+   network: mainnet
+   source:
+     address: '0x6f60A6C272bEca4FddD3Cf15Fc18A2815f2db04e'
+     abi: UnicornRegistrarController
+   mapping:
+     kind: ethereum/events
+     apiVersion: 0.0.3
+     language: wasm/assemblyscript
+     file: ./src/UnicornRegistrar.ts
+     entities:
+       - Registration
+     abis:
+       - name: UnicornRegistrarController
+         file: ./abis/UnicornRegistrarController.json
+     eventHandlers:
+       - event: NameRegistered(string,indexed bytes32,indexed address,uint256,uint256)
+         handler: handleNameRegisteredByController
+ - kind: ethereum/contract
+   name: BearBaseRegistrar
+   network: mainnet
+   source:
+     address: '0x4e506cA4d4F64B65c9396C000e5C7388ADA74EA8'
+     abi: BearBaseRegistrar
+   mapping:
+     kind: ethereum/events
+     apiVersion: 0.0.3
+     language: wasm/assemblyscript
+     file: ./src/BearRegistrar.ts
+     entities:
+       - Registration
+       - NameRegistered
+       - NameMigrated
+       - NameRenewed
+       - NameTransferred
+     abis:
+       - name: BearBaseRegistrar
+         file: ./abis/BearBaseRegistrar.json
+     eventHandlers:
+       - event: NameMigrated(indexed uint256,indexed address,uint256)
+         handler: handleNameMigrated
+       - event: NameRegistered(indexed uint256,indexed address,uint256)
+         handler: handleNameRegistered
+       - event: NameRenewed(indexed uint256,uint256)
+         handler: handleNameRenewed
+       - event: Transfer(indexed address,indexed address,indexed uint256)
+         handler: handleNameTransferred
+ - kind: ethereum/contract
+   name: BearRegistrarController
+   network: mainnet
+   source:
+     address: '0x13e73e4DeFb9b35c03E9C80235a19516A71Ce1da'
+     abi: BearRegistrarController
+   mapping:
+     kind: ethereum/events
+     apiVersion: 0.0.3
+     language: wasm/assemblyscript
+     file: ./src/BearRegistrar.ts
+     entities:
+       - Registration
+     abis:
+       - name: BearRegistrarController
+         file: ./abis/BearRegistrarController.json
+     eventHandlers:
+       - event: NameRegistered(string,indexed bytes32,indexed address,uint256,uint256)
+         handler: handleNameRegisteredByController 
+ - kind: ethereum/contract
+   name: BullBaseRegistrar
+   network: mainnet
+   source:
+     address: '0xB146FB9F3aeb9D1b0de358356936cAd2ee8a0d4e'
+     abi: BullBaseRegistrar
+   mapping:
+     kind: ethereum/events
+     apiVersion: 0.0.3
+     language: wasm/assemblyscript
+     file: ./src/BullRegistrar.ts
+     entities:
+       - Registration
+       - NameRegistered
+       - NameMigrated
+       - NameRenewed
+       - NameTransferred
+     abis:
+       - name: BullBaseRegistrar
+         file: ./abis/BullBaseRegistrar.json
+     eventHandlers:
+       - event: NameMigrated(indexed uint256,indexed address,uint256)
+         handler: handleNameMigrated
+       - event: NameRegistered(indexed uint256,indexed address,uint256)
+         handler: handleNameRegistered
+       - event: NameRenewed(indexed uint256,uint256)
+         handler: handleNameRenewed
+       - event: Transfer(indexed address,indexed address,indexed uint256)
+         handler: handleNameTransferred
+ - kind: ethereum/contract
+   name: BullRegistrarController
+   network: mainnet
+   source:
+     address: '0x501640DD67674F1a3cBD78D81984480d0f60c24c'
+     abi: BullRegistrarController
+   mapping:
+     kind: ethereum/events
+     apiVersion: 0.0.3
+     language: wasm/assemblyscript
+     file: ./src/BullRegistrar.ts
+     entities:
+       - Registration
+     abis:
+       - name: BullRegistrarController
+         file: ./abis/BullRegistrarController.json
+     eventHandlers:
+       - event: NameRegistered(string,indexed bytes32,indexed address,uint256,uint256)
+         handler: handleNameRegisteredByController
+ - kind: ethereum/contract
+   name: EthLogoBaseRegistrar
+   network: mainnet
+   source:
+     address: '0xc583835bd79C6C6683eC2ECdCaC026211BBe2163'
+     abi: EthLogoBaseRegistrar
+   mapping:
+     kind: ethereum/events
+     apiVersion: 0.0.3
+     language: wasm/assemblyscript
+     file: ./src/EthLogoRegistrar.ts
+     entities:
+       - Registration
+       - NameRegistered
+       - NameMigrated
+       - NameRenewed
+       - NameTransferred
+     abis:
+       - name: EthLogoBaseRegistrar
+         file: ./abis/EthLogoBaseRegistrar.json
+     eventHandlers:
+       - event: NameMigrated(indexed uint256,indexed address,uint256)
+         handler: handleNameMigrated
+       - event: NameRegistered(indexed uint256,indexed address,uint256)
+         handler: handleNameRegistered
+       - event: NameRenewed(indexed uint256,uint256)
+         handler: handleNameRenewed
+       - event: Transfer(indexed address,indexed address,indexed uint256)
+         handler: handleNameTransferred
+ - kind: ethereum/contract
+   name: EthLogoRegistrarController
+   network: mainnet
+   source:
+     address: '0x281C363E06456862e20Ff596A1C0ab2298Eb72B2'
+     abi: EthLogoRegistrarController
+   mapping:
+     kind: ethereum/events
+     apiVersion: 0.0.3
+     language: wasm/assemblyscript
+     file: ./src/EthLogoRegistrar.ts
+     entities:
+       - Registration
+     abis:
+       - name: EthLogoRegistrarController
+         file: ./abis/EthLogoRegistrarController.json
+     eventHandlers:
+       - event: NameRegistered(string,indexed bytes32,indexed address,uint256,uint256)
+         handler: handleNameRegisteredByController
+ - kind: ethereum/contract
+   name: DegenBaseRegistrar
+   network: mainnet
+   source:
+     address: '0x0994bcA1EFEa54256d215D46B2B47D047E712D82'
+     abi: DegenBaseRegistrar
+   mapping:
+     kind: ethereum/events
+     apiVersion: 0.0.3
+     language: wasm/assemblyscript
+     file: ./src/DegenRegistrar.ts
+     entities:
+       - Registration
+       - NameRegistered
+       - NameMigrated
+       - NameRenewed
+       - NameTransferred
+     abis:
+       - name: DegenBaseRegistrar
+         file: ./abis/DegenBaseRegistrar.json
+     eventHandlers:
+       - event: NameMigrated(indexed uint256,indexed address,uint256)
+         handler: handleNameMigrated
+       - event: NameRegistered(indexed uint256,indexed address,uint256)
+         handler: handleNameRegistered
+       - event: NameRenewed(indexed uint256,uint256)
+         handler: handleNameRenewed
+       - event: Transfer(indexed address,indexed address,indexed uint256)
+         handler: handleNameTransferred
+ - kind: ethereum/contract
+   name: DegenRegistrarController
+   network: mainnet
+   source:
+     address: '0x1C48bD071B29B40642bdDe674357737451E27831'
+     abi: DegenRegistrarController
+   mapping:
+     kind: ethereum/events
+     apiVersion: 0.0.3
+     language: wasm/assemblyscript
+     file: ./src/DegenRegistrar.ts
+     entities:
+       - Registration
+     abis:
+       - name: DegenRegistrarController
+         file: ./abis/DegenRegistrarController.json
+     eventHandlers:
+       - event: NameRegistered(string,indexed bytes32,indexed address,uint256,uint256)
+         handler: handleNameRegisteredByController
+ - kind: ethereum/contract
+   name: FlyingBaseRegistrar
+   network: mainnet
+   source:
+     address: '0x608d058EF21cC690505F0c6E3D37616132DEE0Fc'
+     abi: FlyingBaseRegistrar
+   mapping:
+     kind: ethereum/events
+     apiVersion: 0.0.3
+     language: wasm/assemblyscript
+     file: ./src/FlyingRegistrar.ts
+     entities:
+       - Registration
+       - NameRegistered
+       - NameMigrated
+       - NameRenewed
+       - NameTransferred
+     abis:
+       - name: FlyingBaseRegistrar
+         file: ./abis/FlyingBaseRegistrar.json
+     eventHandlers:
+       - event: NameMigrated(indexed uint256,indexed address,uint256)
+         handler: handleNameMigrated
+       - event: NameRegistered(indexed uint256,indexed address,uint256)
+         handler: handleNameRegistered
+       - event: NameRenewed(indexed uint256,uint256)
+         handler: handleNameRenewed
+       - event: Transfer(indexed address,indexed address,indexed uint256)
+         handler: handleNameTransferred
+ - kind: ethereum/contract
+   name: FlyingRegistrarController
+   network: mainnet
+   source:
+     address: '0xe45ADb7AC6e14F104E02851CF9825749bB132Afe'
+     abi: FlyingRegistrarController
+   mapping:
+     kind: ethereum/events
+     apiVersion: 0.0.3
+     language: wasm/assemblyscript
+     file: ./src/FlyingRegistrar.ts
+     entities:
+       - Registration
+     abis:
+       - name: FlyingRegistrarController
+         file: ./abis/FlyingRegistrarController.json
+     eventHandlers:
+       - event: NameRegistered(string,indexed bytes32,indexed address,uint256,uint256)
+         handler: handleNameRegisteredByController
+ - kind: ethereum/contract
+   name: PineappleBaseRegistrar
+   network: mainnet
+   source:
+     address: '0x92d0Ee21931698c289E777170F00BAF653eCd260'
+     abi: PineappleBaseRegistrar
+   mapping:
+     kind: ethereum/events
+     apiVersion: 0.0.3
+     language: wasm/assemblyscript
+     file: ./src/PineappleRegistrar.ts
+     entities:
+       - Registration
+       - NameRegistered
+       - NameMigrated
+       - NameRenewed
+       - NameTransferred
+     abis:
+       - name: PineappleBaseRegistrar
+         file: ./abis/PineappleBaseRegistrar.json
+     eventHandlers:
+       - event: NameMigrated(indexed uint256,indexed address,uint256)
+         handler: handleNameMigrated
+       - event: NameRegistered(indexed uint256,indexed address,uint256)
+         handler: handleNameRegistered
+       - event: NameRenewed(indexed uint256,uint256)
+         handler: handleNameRenewed
+       - event: Transfer(indexed address,indexed address,indexed uint256)
+         handler: handleNameTransferred
+ - kind: ethereum/contract
+   name: PineappleRegistrarController
+   network: mainnet
+   source:
+     address: '0xe45ADb7AC6e14F104E02851CF9825749bB132Afe'
+     abi: PineappleRegistrarController
+   mapping:
+     kind: ethereum/events
+     apiVersion: 0.0.3
+     language: wasm/assemblyscript
+     file: ./src/PineappleRegistrar.ts
+     entities:
+       - Registration
+     abis:
+       - name: PineappleRegistrarController
+         file: ./abis/PineappleRegistrarController.json
+     eventHandlers:
+       - event: NameRegistered(string,indexed bytes32,indexed address,uint256,uint256)
+         handler: handleNameRegisteredByController 
+ - kind: ethereum/contract
+   name: YamBaseRegistrar
+   network: mainnet
+   source:
+     address: '0x0461daFC4BaB6946547264d5fa067f2D637A4D37'
+     abi: YamBaseRegistrar
+   mapping:
+     kind: ethereum/events
+     apiVersion: 0.0.3
+     language: wasm/assemblyscript
+     file: ./src/YamRegistrar.ts
+     entities:
+       - Registration
+       - NameRegistered
+       - NameMigrated
+       - NameRenewed
+       - NameTransferred
+     abis:
+       - name: YamBaseRegistrar
+         file: ./abis/YamBaseRegistrar.json
+     eventHandlers:
+       - event: NameMigrated(indexed uint256,indexed address,uint256)
+         handler: handleNameMigrated
+       - event: NameRegistered(indexed uint256,indexed address,uint256)
+         handler: handleNameRegistered
+       - event: NameRenewed(indexed uint256,uint256)
+         handler: handleNameRenewed
+       - event: Transfer(indexed address,indexed address,indexed uint256)
+         handler: handleNameTransferred
+ - kind: ethereum/contract
+   name: YamRegistrarController
+   network: mainnet
+   source:
+     address: '0x41B808094381bad8AA9415C78494D689EF49B158'
+     abi: YamRegistrarController
+   mapping:
+     kind: ethereum/events
+     apiVersion: 0.0.3
+     language: wasm/assemblyscript
+     file: ./src/YamRegistrar.ts
+     entities:
+       - Registration
+     abis:
+       - name: YamRegistrarController
+         file: ./abis/YamRegistrarController.json
+     eventHandlers:
+       - event: NameRegistered(string,indexed bytes32,indexed address,uint256,uint256)
+         handler: handleNameRegisteredByController 
+ - kind: ethereum/contract
+   name: SushiBaseRegistrar
+   network: mainnet
+   source:
+     address: '0xd9893D6Eb6293F73764bCE5502eCa4E26B6BE00e'
+     abi: SushiBaseRegistrar
+   mapping:
+     kind: ethereum/events
+     apiVersion: 0.0.3
+     language: wasm/assemblyscript
+     file: ./src/SushiRegistrar.ts
+     entities:
+       - Registration
+       - NameRegistered
+       - NameMigrated
+       - NameRenewed
+       - NameTransferred
+     abis:
+       - name: SushiBaseRegistrar
+         file: ./abis/SushiBaseRegistrar.json
+     eventHandlers:
+       - event: NameMigrated(indexed uint256,indexed address,uint256)
+         handler: handleNameMigrated
+       - event: NameRegistered(indexed uint256,indexed address,uint256)
+         handler: handleNameRegistered
+       - event: NameRenewed(indexed uint256,uint256)
+         handler: handleNameRenewed
+       - event: Transfer(indexed address,indexed address,indexed uint256)
+         handler: handleNameTransferred
+ - kind: ethereum/contract
+   name: SushiRegistrarController
+   network: mainnet
+   source:
+     address: '0x3B9b4Ec3cfc6d3d88cE25Ff9A07cb332C4927833'
+     abi: SushiRegistrarController
+   mapping:
+     kind: ethereum/events
+     apiVersion: 0.0.3
+     language: wasm/assemblyscript
+     file: ./src/SushiRegistrar.ts
+     entities:
+       - Registration
+     abis:
+       - name: SushiRegistrarController
+         file: ./abis/SushiRegistrarController.json
+     eventHandlers:
+       - event: NameRegistered(string,indexed bytes32,indexed address,uint256,uint256)
+         handler: handleNameRegisteredByController
+ - kind: ethereum/contract
+   name: WalletBaseRegistrar
+   network: mainnet
+   source:
+     address: '0x908EfB76CA41ED2Ef9115529409478Bf779DC1F1'
+     abi: WalletBaseRegistrar
+   mapping:
+     kind: ethereum/events
+     apiVersion: 0.0.3
+     language: wasm/assemblyscript
+     file: ./src/WalletRegistrar.ts
+     entities:
+       - Registration
+       - NameRegistered
+       - NameMigrated
+       - NameRenewed
+       - NameTransferred
+     abis:
+       - name: WalletBaseRegistrar
+         file: ./abis/WalletBaseRegistrar.json
+     eventHandlers:
+       - event: NameMigrated(indexed uint256,indexed address,uint256)
+         handler: handleNameMigrated
+       - event: NameRegistered(indexed uint256,indexed address,uint256)
+         handler: handleNameRegistered
+       - event: NameRenewed(indexed uint256,uint256)
+         handler: handleNameRenewed
+       - event: Transfer(indexed address,indexed address,indexed uint256)
+         handler: handleNameTransferred
+ - kind: ethereum/contract
+   name: WalletRegistrarController
+   network: mainnet
+   source:
+     address: '0x94a2146777f252bE6D2dC6166eeceE804203F22d'
+     abi: WalletRegistrarController
+   mapping:
+     kind: ethereum/events
+     apiVersion: 0.0.3
+     language: wasm/assemblyscript
+     file: ./src/WalletRegistrar.ts
+     entities:
+       - Registration
+     abis:
+       - name: WalletRegistrarController
+         file: ./abis/WalletRegistrarController.json
+     eventHandlers:
+       - event: NameRegistered(string,indexed bytes32,indexed address,uint256,uint256)
+         handler: handleNameRegisteredByController           
