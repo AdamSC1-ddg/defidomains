@@ -24,7 +24,7 @@ import {
 // Import entity types generated from the GraphQL schema
 import { Account, AuctionedName, Domain, Registration, NameMigrated, NameRegistered, NameRenewed, NameTransferred } from './types/schema'
 
-var rootNode:ByteArray = byteArrayFromHex("0x4a577841665418d2941072f21b5602cad2daa590c5dc581a2f3cbc7ee3d8ec2d")
+var rootNode: ByteArray = byteArrayFromHex("0x4a577841665418d2941072f21b5602cad2daa590c5dc581a2f3cbc7ee3d8ec2d")
 
 export function handleNameMigrated(event: NameMigratedEvent): void {
   let label = uint256ToByteArray(event.params.id)
@@ -70,7 +70,15 @@ export function handleNameRegistered(event: NameRegisteredEvent): void {
 
 export function handleNameRegisteredByController(event: ControllerNameRegisteredEvent): void {
   let domain = new Domain(crypto.keccak256(concat(rootNode, event.params.label)).toHex())
-  if(domain.labelName !== event.params.name) {
+  if (domain.labelName !== event.params.name) {
+    let ownerId = event.params.owner.toHex()
+    let owner = Account.load(ownerId)
+    if (owner == null) {
+      owner = new Account(ownerId)
+      owner.save()
+    }
+    domain.isMigrated = false
+    domain.owner = owner.id
     domain.labelName = event.params.name
     domain.name = event.params.name + '.dex'
     domain.save()
@@ -95,7 +103,7 @@ export function handleNameTransferred(event: TransferEvent): void {
   let label = uint256ToByteArray(event.params.tokenId)
   let registrant = event.params.to.toHex()
   let registration = Registration.load(label.toHex())
-  if(registration == null) return;
+  if (registration == null) return;
 
   registration.registrant = registrant
   registration.save()
