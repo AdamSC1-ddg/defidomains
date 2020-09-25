@@ -6,8 +6,7 @@
 npm install
 npm start
 ```
-## Sample Endpoints
+## Endpoint
 
-- http://localhost:3000/
-- http://localhost:3000/bitcoin.🐻
+- http://localhost:3000/[contract]/[tokenId]
 
