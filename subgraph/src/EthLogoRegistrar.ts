@@ -6,7 +6,7 @@ import {
 
 import {
   createEventID, ROOT_NODE, EMPTY_ADDRESS,
-  uint256ToByteArray, byteArrayFromHex, concat
+  uint256ToByteArray, byteArrayFromHex, concat, getTokenIdFromHash 
 } from './utils'
 
 // Import event types from the registry contract ABI
@@ -24,7 +24,7 @@ import {
 // Import entity types generated from the GraphQL schema
 import { Account, AuctionedName, Domain, Registration, NameMigrated, NameRegistered, NameRenewed, NameTransferred } from './types/schema'
 
-var rootNode: ByteArray = byteArrayFromHex("0x8e67a0821bc622b5feda2f338759d6be667630df57b0c72766a94b14550921ee")
+var rootNode: ByteArray = byteArrayFromHex("8e67a0821bc622b5feda2f338759d6be667630df57b0c72766a94b14550921ee")
 
 export function handleNameMigrated(event: NameMigratedEvent): void {
   let label = uint256ToByteArray(event.params.id)
@@ -69,7 +69,11 @@ export function handleNameRegistered(event: NameRegisteredEvent): void {
 }
 
 export function handleNameRegisteredByController(event: ControllerNameRegisteredEvent): void {
-  let domain = new Domain(crypto.keccak256(concat(rootNode, event.params.label)).toHex())
+  let domainId = crypto.keccak256(concat(rootNode, event.params.label)).toHexString()
+  let domain = Domain.load(domainId)
+  if (domain == null) {
+      domain = new Domain(domainId)
+  }
   if (domain.labelName !== event.params.name) {
     let ownerId = event.params.owner.toHex()
     let owner = Account.load(ownerId)
@@ -80,6 +84,9 @@ export function handleNameRegisteredByController(event: ControllerNameRegistered
     domain.isMigrated = false
     domain.owner = owner.id
     domain.labelName = event.params.name
+    domain.labelhash = event.params.label    
+    let tokenId = getTokenIdFromHash(event.params.label).toString()
+    domain.tokenID = tokenId  
     domain.name = event.params.name + '.⟠'
     domain.save()
   }

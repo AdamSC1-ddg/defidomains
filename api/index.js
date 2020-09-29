@@ -38,35 +38,31 @@ app.get('/:base_registrar/:token_id', function (req, res) {
                 
     }
 
-    const label = toHex("" + tokenId)
     const rootNode = registrarNodeMap[contract]
 
     axios.post("http://127.0.0.1:8000/subgraphs/name/testnet/defi-ens", {       
         query: `
-            {
-                registrations(where: {id:"${label}"}) {
-                    id
-                    domain {
-                        id
-                        name
-                        labelName
-                        parent {
-                            id
-                        }
-                    }
-                } 
-            }     
+        {
+            domains(where: {tokenID: "${tokenId}"}) {
+              id
+              name
+              labelName
+              parent {
+                id
+              }
+            }
+          }               
             `
     })
         .then(data => {
-            let json = (data.data.data.registrations || [])
-                .filter(r => r.domain.parent.id == rootNode)
+            let json = (data.data.data.domains || [])
+                .filter(r => r.parent.id == rootNode)
                 .map(r => {
                     return {
-                        "description": r.domain.labelName,
+                        "description": r.labelName,
                         "external_url": "",
                         "image": "",
-                        "name": r.domain.name,
+                        "name": r.name,
                         "attributes": [],
                     }
                 })

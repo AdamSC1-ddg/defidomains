@@ -7,7 +7,7 @@ import {
 
 import {
   createEventID, ROOT_NODE, EMPTY_ADDRESS,
-  uint256ToByteArray, byteArrayFromHex, concat
+  uint256ToByteArray, byteArrayFromHex, concat, getTokenIdFromHash 
 } from './utils'
 
 // Import event types from the registry contract ABI
@@ -54,7 +54,11 @@ export function handleNameRegistered(event: NameRegisteredEvent): void {
 }
 
 export function handleNameRegisteredByController(event: ControllerNameRegisteredEvent): void {
-  let domain = new Domain(crypto.keccak256(concat(rootNode, event.params.label)).toHex())
+  let domainId = crypto.keccak256(concat(rootNode, event.params.label)).toHexString()
+  let domain = Domain.load(domainId)
+  if (domain == null) {
+      domain = new Domain(domainId)
+  }
   if (domain.labelName !== event.params.name) {
     let ownerId = event.params.owner.toHex()
     let owner = Account.load(ownerId)
@@ -65,6 +69,9 @@ export function handleNameRegisteredByController(event: ControllerNameRegistered
     domain.isMigrated = false
     domain.owner = owner.id
     domain.labelName = event.params.name
+    domain.labelhash = event.params.label    
+    let tokenId = getTokenIdFromHash(event.params.label).toString()
+    domain.tokenID = tokenId  
     domain.name = event.params.name + '.eth'
     domain.save()
   }

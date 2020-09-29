@@ -5,7 +5,7 @@ import {
 } from '@graphprotocol/graph-ts'
 
 import {
-  createEventID, concat, ROOT_NODE, EMPTY_ADDRESS
+  getTokenIdFromHash, createEventID, concat, ROOT_NODE, EMPTY_ADDRESS
 } from './utils'
 
 // Import event types from the registry contract ABI
@@ -23,6 +23,13 @@ function createDomain(node: string): Domain {
   let domain = new Domain(node)
   if(node == ROOT_NODE) {
     domain = new Domain(node)
+
+    let owner = Account.load(EMPTY_ADDRESS)
+    if (owner == null) {
+      owner = new Account(EMPTY_ADDRESS)
+      owner.save()
+    }
+
     domain.owner = EMPTY_ADDRESS
     domain.isMigrated = true
   }
@@ -69,6 +76,8 @@ function _handleNewOwner(event: NewOwnerEvent, isMigrated: boolean): void {
   domain.owner = account.id
   domain.parent = event.params.node.toHexString()
   domain.labelhash = event.params.label
+  let tokenId = getTokenIdFromHash(event.params.label).toString()
+  domain.tokenID = tokenId  
   domain.isMigrated = isMigrated
   domain.save()
 
@@ -88,7 +97,7 @@ export function handleTransfer(event: TransferEvent): void {
   account.save()
 
   // Update the domain owner
-  let domain = createDomain(node);
+  let domain = getDomain(node);
   domain.owner = account.id
   domain.save()
 
@@ -105,7 +114,7 @@ export function handleNewResolver(event: NewResolverEvent): void {
   let id = event.params.resolver.toHexString().concat('-').concat(event.params.node.toHexString())
 
   let node = event.params.node.toHexString()
-  let domain = createDomain(node)
+  let domain = getDomain(node)
   domain.resolver = id
 
   let resolver = Resolver.load(id)
@@ -131,7 +140,7 @@ export function handleNewResolver(event: NewResolverEvent): void {
 // Handler for NewTTL events
 export function handleNewTTL(event: NewTTLEvent): void {
   let node = event.params.node.toHexString()
-  let domain = createDomain(node)
+  let domain = getDomain(node)
   domain.ttl = event.params.ttl
   domain.save()
 
