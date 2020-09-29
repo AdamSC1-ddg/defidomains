@@ -3,6 +3,7 @@ import {
   BigInt,
   ByteArray,
   EthereumEvent,
+  Bytes,
 } from '@graphprotocol/graph-ts'
 
 export function createEventID(event: EthereumEvent): string {
@@ -11,6 +12,15 @@ export function createEventID(event: EthereumEvent): string {
 
 export const ROOT_NODE = '0x0000000000000000000000000000000000000000000000000000000000000000'
 export const EMPTY_ADDRESS = '0x0000000000000000000000000000000000000000'
+
+export function getTokenIdFromHash(labelHash: Bytes): BigInt {
+  labelHash.reverse()
+  let tokenId = BigInt.fromUnsignedBytes(labelHash)
+  labelHash.reverse()
+
+  return tokenId
+}
+
 
 // Helper for concatenating two byte arrays
 export function concat(a: ByteArray, b: ByteArray): ByteArray {

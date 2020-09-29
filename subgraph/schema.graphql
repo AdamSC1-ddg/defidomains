@@ -11,6 +11,7 @@ type Domain @entity {
   ttl: BigInt
   isMigrated: Boolean!
   events: [DomainEvent!]! @derivedFrom(field: "domain")
+  tokenID: String
 }
 
 interface DomainEvent {

@@ -6,7 +6,7 @@ import {
 
 import {
   createEventID, ROOT_NODE, EMPTY_ADDRESS,
-  uint256ToByteArray, byteArrayFromHex, concat
+  uint256ToByteArray, byteArrayFromHex, concat, getTokenIdFromHash 
 } from './utils'
 
 // Import event types from the registry contract ABI
@@ -24,7 +24,7 @@ import {
 // Import entity types generated from the GraphQL schema
 import { Account, AuctionedName, Domain, Registration, NameMigrated, NameRegistered, NameRenewed, NameTransferred } from './types/schema'
 
-var rootNode:ByteArray = byteArrayFromHex("0xb5f2bbf81da581299d4ff7af60560c0ac854196f5227328d2d0c2bb0df33e553")
+var rootNode: ByteArray = byteArrayFromHex("b5f2bbf81da581299d4ff7af60560c0ac854196f5227328d2d0c2bb0df33e553")
 
 export function handleNameMigrated(event: NameMigratedEvent): void {
   let label = uint256ToByteArray(event.params.id)
@@ -69,9 +69,24 @@ export function handleNameRegistered(event: NameRegisteredEvent): void {
 }
 
 export function handleNameRegisteredByController(event: ControllerNameRegisteredEvent): void {
-  let domain = new Domain(crypto.keccak256(concat(rootNode, event.params.label)).toHex())
-  if(domain.labelName !== event.params.name) {
+  let domainId = crypto.keccak256(concat(rootNode, event.params.label)).toHexString()
+  let domain = Domain.load(domainId)
+  if (domain == null) {
+      domain = new Domain(domainId)
+  }
+  if (domain.labelName !== event.params.name) {
+    let ownerId = event.params.owner.toHex()
+    let owner = Account.load(ownerId)
+    if (owner == null) {
+      owner = new Account(ownerId)
+      owner.save()
+    }
+    domain.isMigrated = false
+    domain.owner = owner.id
     domain.labelName = event.params.name
+    domain.labelhash = event.params.label    
+    let tokenId = getTokenIdFromHash(event.params.label).toString()
+    domain.tokenID = tokenId  
     domain.name = event.params.name + '.dao'
     domain.save()
   }
@@ -95,7 +110,7 @@ export function handleNameTransferred(event: TransferEvent): void {
   let label = uint256ToByteArray(event.params.tokenId)
   let registrant = event.params.to.toHex()
   let registration = Registration.load(label.toHex())
-  if(registration == null) return;
+  if (registration == null) return;
 
   registration.registrant = registrant
   registration.save()

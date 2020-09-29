@@ -7,7 +7,7 @@ import {
 
 import {
   createEventID, ROOT_NODE, EMPTY_ADDRESS,
-  uint256ToByteArray, byteArrayFromHex, concat
+  uint256ToByteArray, byteArrayFromHex, concat, getTokenIdFromHash 
 } from './utils'
 
 // Import event types from the registry contract ABI
@@ -25,7 +25,7 @@ import {
 // Import entity types generated from the GraphQL schema
 import { Account, Domain, Registration, NameRegistered, NameRenewed, NameTransferred } from './types/schema'
 
-var rootNode:ByteArray = byteArrayFromHex("93cdeb708b7545dc668eb9280176169d1c33cfd8ed6f04690a0bcc88a93fc4ae")
+var rootNode: ByteArray = byteArrayFromHex("93cdeb708b7545dc668eb9280176169d1c33cfd8ed6f04690a0bcc88a93fc4ae")
 
 export function handleNameRegistered(event: NameRegisteredEvent): void {
   let account = new Account(event.params.owner.toHex())
@@ -54,28 +54,43 @@ export function handleNameRegistered(event: NameRegisteredEvent): void {
 }
 
 export function handleNameRegisteredByController(event: ControllerNameRegisteredEvent): void {
-  let domain = new Domain(crypto.keccak256(concat(rootNode, event.params.label)).toHex())
-  if(domain.labelName !== event.params.name) {
+  let domainId = crypto.keccak256(concat(rootNode, event.params.label)).toHexString()
+  let domain = Domain.load(domainId)
+  if (domain == null) {
+      domain = new Domain(domainId)
+  }
+  if (domain.labelName !== event.params.name) {
+    let ownerId = event.params.owner.toHex()
+    let owner = Account.load(ownerId)
+    if (owner == null) {
+      owner = new Account(ownerId)
+      owner.save()
+    }
+    domain.isMigrated = false
+    domain.owner = owner.id
     domain.labelName = event.params.name
+    domain.labelhash = event.params.label    
+    let tokenId = getTokenIdFromHash(event.params.label).toString()
+    domain.tokenID = tokenId  
     domain.name = event.params.name + '.eth'
     domain.save()
   }
 
   let registration = Registration.load(event.params.label.toHex());
-  if(registration == null) return
+  if (registration == null) return
   registration.labelName = event.params.name
 }
 
 export function handleNameRenewedByController(event: ControllerNameRenewedEvent): void {
   let domain = new Domain(crypto.keccak256(concat(rootNode, event.params.label)).toHex())
-  if(domain.labelName !== event.params.name) {
+  if (domain.labelName !== event.params.name) {
     domain.labelName = event.params.name
     domain.name = event.params.name + '.eth'
     domain.save()
   }
 
   let registration = Registration.load(event.params.label.toHex());
-  if(registration == null) return
+  if (registration == null) return
   registration.labelName = event.params.name
 }
 
@@ -99,7 +114,7 @@ export function handleNameTransferred(event: TransferEvent): void {
 
   let label = uint256ToByteArray(event.params.tokenId)
   let registration = Registration.load(label.toHex())
-  if(registration == null) return;
+  if (registration == null) return;
 
   registration.registrant = account.id
   registration.save()
